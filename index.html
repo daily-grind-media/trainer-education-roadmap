@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy Performance Institute — Trainer Education Platform · Launch Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600&family=Barlow:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --black:#080808;--card:#111111;--border:#1E1E1E;--border-mid:#2A2A2A;
+  --copper:#BB725A;--copper-light:#D4937D;--copper-dark:#8A4F3B;
+  --white:#F5F3F0;--muted:#777777;
+  --nav-h:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;font-weight:300;
+  line-height:1.7;overflow-x:hidden;position:relative;-webkit-font-smoothing:antialiased;}
+body.locked{overflow:hidden;}
+::selection{background:rgba(187,114,90,0.3);color:var(--white);}
+
+/* ============ TEXTURE / OVERLAYS ============ */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.04;mix-blend-mode:overlay;}
+
+/* ============ CONTAINER / SECTION RHYTHM ============ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+section{padding:clamp(64px,9vw,124px) 0;position:relative;}
+
+/* ============ TYPE ============ */
+h1,h2,h3,.bebas{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:0.02em;line-height:0.98;}
+.eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:500;text-transform:uppercase;
+  letter-spacing:0.42em;font-size:clamp(0.62rem,1.3vw,0.74rem);color:var(--copper);
+  margin-bottom:clamp(18px,3vw,28px);display:flex;align-items:center;gap:14px;}
+.eyebrow::before{content:"";width:32px;height:1px;background:var(--copper);flex:none;}
+.sec-num{font-family:'Barlow Condensed',sans-serif;font-weight:300;letter-spacing:0.4em;
+  color:var(--copper-dark);font-size:0.7rem;text-transform:uppercase;}
+h2.section-title{font-size:clamp(2.4rem,7vw,4.6rem);color:var(--white);
+  margin-bottom:clamp(22px,3.4vw,40px);text-transform:uppercase;}
+.lead{font-family:'Barlow',sans-serif;font-weight:300;font-size:clamp(1rem,2vw,1.18rem);
+  color:#cfccc6;max-width:64ch;}
+p{font-weight:300;color:#bdbab4;}
+p strong{color:var(--white);font-weight:500;}
+.serif{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--copper-light);}
+
+/* ============ DIVIDER ============ */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--copper-dark) 18%,var(--copper) 50%,var(--copper-dark) 82%,transparent);
+  border:none;margin:0 auto;width:100%;opacity:0.55;}
+.divider-block{padding:0;}
+.divider-block .wrap{padding-top:0;padding-bottom:0;}
+
+/* ============ REVEAL MOTION ============ */
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+.stagger > *{opacity:0;transform:translateY(24px);
+  transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+.stagger.in > *{opacity:1;transform:none;}
+.stagger.in > *:nth-child(1){transition-delay:.02s;}
+.stagger.in > *:nth-child(2){transition-delay:.10s;}
+.stagger.in > *:nth-child(3){transition-delay:.18s;}
+.stagger.in > *:nth-child(4){transition-delay:.26s;}
+.stagger.in > *:nth-child(5){transition-delay:.34s;}
+.stagger.in > *:nth-child(6){transition-delay:.42s;}
+.stagger.in > *:nth-child(7){transition-delay:.50s;}
+.stagger.in > *:nth-child(8){transition-delay:.58s;}
+
+/* ============ STICKY NAV ============ */
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,4vw,40px);
+  background:rgba(8,8,8,0.55);backdrop-filter:blur(18px) saturate(120%);
+  -webkit-backdrop-filter:blur(18px) saturate(120%);
+  border-bottom:1px solid transparent;transition:background .4s ease,border-color .4s ease;}
+.nav.scrolled{background:rgba(8,8,8,0.82);border-bottom:1px solid var(--border);}
+.nav-brand{display:flex;align-items:center;gap:11px;flex:none;}
+.nav-mark{display:flex;gap:3px;align-items:flex-end;height:20px;}
+.nav-mark span{display:block;width:3px;background:var(--copper);border-radius:1px;animation:grind 2.2s ease-in-out infinite;}
+.nav-mark span:nth-child(1){height:40%;animation-delay:0s;}
+.nav-mark span:nth-child(2){height:75%;animation-delay:.2s;}
+.nav-mark span:nth-child(3){height:55%;animation-delay:.4s;}
+.nav-mark span:nth-child(4){height:100%;animation-delay:.6s;}
+@keyframes grind{0%,100%{transform:scaleY(1);opacity:.85;}50%{transform:scaleY(.45);opacity:1;}}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;
+  letter-spacing:0.26em;font-size:0.72rem;color:var(--white);white-space:nowrap;}
+.nav-name b{color:var(--copper);font-weight:600;}
+.nav-links{display:flex;align-items:center;gap:clamp(6px,1.4vw,20px);overflow-x:auto;
+  scrollbar-width:none;margin:0 14px;-webkit-overflow-scrolling:touch;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.66rem;color:var(--muted);text-decoration:none;white-space:nowrap;
+  padding:6px 2px;position:relative;transition:color .35s ease;}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:var(--copper);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.active{color:var(--copper);}
+.nav-links a.active::after{transform:scaleX(1);}
+.nav-tools{display:flex;align-items:center;gap:10px;flex:none;}
+.nav-phase{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--border);
+  border-radius:22px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:0.16em;font-size:0.58rem;color:var(--muted);white-space:nowrap;}
+.nav-phase b{color:var(--copper);font-weight:500;}
+.nav-phase .dot{width:6px;height:6px;border-radius:50%;background:var(--copper);
+  box-shadow:0 0 8px var(--copper);animation:pulse 2s ease-in-out infinite;}
+.cc-btn{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;
+  background:linear-gradient(120deg,rgba(187,114,90,0.14),rgba(8,8,8,0.2));
+  border:1px solid var(--copper-dark);border-radius:6px;color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.62rem;transition:all .35s ease;white-space:nowrap;}
+.cc-btn:hover{border-color:var(--copper);background:linear-gradient(120deg,rgba(187,114,90,0.24),rgba(8,8,8,0.2));
+  box-shadow:0 0 18px rgba(187,114,90,0.25);}
+.cc-btn svg{width:15px;height:15px;stroke:var(--copper);fill:none;stroke-width:1.7;}
+.cc-btn .lbl{}
+@media(max-width:1000px){.nav-links{display:none;}.nav-name{font-size:0.64rem;letter-spacing:0.2em;}}
+@media(max-width:620px){.nav-phase{display:none;}.cc-btn .lbl{display:none;}.cc-btn{padding:9px;}}
+
+/* ============ HERO ============ */
+header.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+  padding-top:calc(var(--nav-h) + clamp(28px,5vw,52px));padding-bottom:clamp(34px,6vw,54px);
+  position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(70px);will-change:transform;}
+.glow-a{width:60vw;height:60vw;left:-12vw;bottom:-18vw;
+  background:radial-gradient(circle,rgba(187,114,90,0.20),transparent 62%);}
+.glow-b{width:46vw;height:46vw;right:-8vw;top:-10vw;
+  background:radial-gradient(circle,rgba(138,79,59,0.16),transparent 60%);}
+.glow-c{width:30vw;height:30vw;left:40vw;top:30vh;
+  background:radial-gradient(circle,rgba(212,147,125,0.08),transparent 60%);}
+.hero-grid{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.5;
+  background-image:linear-gradient(rgba(187,114,90,0.045) 1px,transparent 1px),
+                  linear-gradient(90deg,rgba(187,114,90,0.045) 1px,transparent 1px);
+  background-size:clamp(48px,6vw,84px) clamp(48px,6vw,84px);
+  mask-image:radial-gradient(ellipse at 50% 45%,#000 20%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 20%,transparent 72%);}
+.hero-inner{position:relative;z-index:2;}
+.hero-lockup{display:flex;align-items:center;gap:14px;}
+.hero-lockup .nav-mark{height:26px;}
+.hero-lockup .nav-name{letter-spacing:0.32em;font-size:0.82rem;}
+.hero-client{font-family:'Barlow Condensed',sans-serif;font-weight:400;letter-spacing:0.34em;
+  text-transform:uppercase;color:var(--copper);font-size:clamp(0.74rem,1.8vw,0.95rem);
+  margin-bottom:clamp(18px,2.6vw,26px);}
+.hero-title{font-size:clamp(3rem,10.5vw,7.4rem);text-transform:uppercase;color:var(--white);line-height:0.86;}
+.hero-title .row2{color:var(--copper);display:block;}
+.hero-sub{font-family:'Barlow',sans-serif;font-weight:300;color:#cfccc6;
+  font-size:clamp(1rem,2.1vw,1.32rem);margin-top:clamp(22px,3vw,32px);max-width:56ch;line-height:1.55;}
+.hero-sub b{color:var(--white);font-weight:500;}
+.hero-parallax{transition:transform .3s cubic-bezier(.2,.7,.2,1);will-change:transform;}
+
+/* hero current-phase panel */
+.phase-strip{margin-top:clamp(30px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;
+  gap:clamp(18px,3vw,40px);}
+.phase-now{display:flex;flex-direction:column;gap:10px;min-width:min(460px,100%);flex:1;}
+.phase-now .pn-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.pn-eyebrow{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.3em;
+  font-size:0.64rem;color:var(--muted);}
+.pn-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--copper);
+  letter-spacing:0.04em;line-height:1;transition:opacity .4s ease;}
+.pn-pct{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;font-size:0.8rem;color:var(--white);
+  margin-left:auto;}
+.pn-bar{height:6px;background:var(--border);border-radius:6px;overflow:hidden;position:relative;}
+.pn-bar span{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:6px;
+  background:linear-gradient(90deg,var(--copper-dark),var(--copper));
+  box-shadow:0 0 14px rgba(187,114,90,0.55);transition:width 1.4s cubic-bezier(.2,.7,.2,1);}
+.phase-track{display:flex;gap:8px;flex-wrap:wrap;}
+.phase-track .pt{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.18em;
+  font-size:0.62rem;color:var(--muted);padding:6px 14px;border:1px solid var(--border);border-radius:20px;
+  display:flex;align-items:center;gap:8px;cursor:pointer;background:transparent;
+  transition:all .35s ease;}
+.phase-track .pt::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--border-mid);transition:all .35s ease;}
+.phase-track .pt:hover{color:var(--white);border-color:var(--copper-dark);}
+.phase-track .pt.active{color:var(--copper);border-color:var(--copper-dark);
+  background:linear-gradient(120deg,rgba(187,114,90,0.10),transparent);}
+.phase-track .pt.active::before{background:var(--copper);box-shadow:0 0 8px var(--copper);
+  animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+.scroll-hint{display:flex;align-items:center;gap:12px;position:relative;z-index:2;
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.3em;
+  font-size:0.62rem;color:var(--muted);}
+.scroll-hint .line{width:1px;height:38px;background:linear-gradient(var(--copper),transparent);position:relative;overflow:hidden;}
+.scroll-hint .line::after{content:"";position:absolute;top:-38px;left:0;width:1px;height:38px;
+  background:linear-gradient(var(--copper-light),transparent);animation:drop 2.4s ease-in-out infinite;}
+@keyframes drop{0%{top:-38px;}60%,100%{top:38px;}}
+
+/* ============ MISSION ============ */
+.mission-wrap{max-width:900px;margin:0 auto;text-align:center;}
+.mission-statement{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1.5rem,4.2vw,2.9rem);line-height:1.34;color:var(--white);}
+.mission-statement .accent{color:var(--copper-light);}
+.mission-mark{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5rem);color:var(--copper-dark);
+  line-height:0.6;opacity:0.7;}
+
+/* ============ VISION CHAIN ============ */
+.vision-chain{display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:stretch;margin-top:8px;}
+.vnode{position:relative;background:var(--card);border:1px solid var(--border);
+  padding:clamp(24px,3vw,34px) clamp(18px,2.4vw,28px);min-height:200px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:border-color .5s ease,transform .5s ease,background .5s ease;}
+.vnode:not(:last-child){border-right:none;}
+.vnode:hover{border-color:var(--copper-dark);background:#151110;transform:translateY(-4px);z-index:3;}
+.vnode .v-step{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.26em;
+  font-size:0.58rem;color:var(--copper);margin-bottom:14px;}
+.vnode .v-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3rem);color:var(--copper-dark);
+  line-height:0.8;margin-bottom:auto;}
+.vnode h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,2.8vw,2rem);color:var(--white);
+  text-transform:uppercase;margin-top:20px;}
+.vnode p{font-size:0.82rem;color:#a7a49e;margin-top:8px;line-height:1.5;}
+.vnode .v-arrow{position:absolute;right:-11px;top:50%;transform:translateY(-50%);z-index:4;
+  width:22px;height:22px;border-radius:50%;background:var(--black);border:1px solid var(--copper-dark);
+  display:flex;align-items:center;justify-content:center;color:var(--copper);font-size:0.7rem;}
+.vnode:last-child{border-color:var(--copper-dark);}
+.vnode:last-child .v-num,.vnode:last-child h3{color:var(--copper);}
+@media(max-width:820px){
+  .vision-chain{grid-template-columns:1fr;}
+  .vnode{border-right:1px solid var(--border)!important;border-bottom:none;}
+  .vnode .v-arrow{right:50%;top:auto;bottom:-11px;transform:translateX(50%) rotate(90deg);}
+}
+
+/* ============ INTERACTIVE CHECK ITEM (shared) ============ */
+.chk{--sz:22px;position:relative;flex:none;width:var(--sz);height:var(--sz);border-radius:6px;
+  border:1px solid var(--border-mid);background:rgba(255,255,255,0.01);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .35s cubic-bezier(.2,.7,.2,1);}
+.chk svg{width:13px;height:13px;stroke:var(--black);fill:none;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .4s ease .05s;}
+.chk:hover{border-color:var(--copper);box-shadow:0 0 0 4px rgba(187,114,90,0.08);}
+.chk[aria-checked="true"]{background:var(--copper);border-color:var(--copper);
+  box-shadow:0 0 14px rgba(187,114,90,0.4);}
+.chk[aria-checked="true"] svg{stroke-dashoffset:0;}
+.chk.pop{animation:chkpop .45s cubic-bezier(.2,.7,.2,1);}
+@keyframes chkpop{0%{transform:scale(1);}40%{transform:scale(1.22);}100%{transform:scale(1);}}
+
+/* ============ SUCCESS CRITERIA ============ */
+.crit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(12px,1.6vw,16px);}
+.crit{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);
+  padding:clamp(16px,2vw,20px) clamp(18px,2.2vw,24px);cursor:pointer;
+  transition:border-color .5s ease,transform .5s ease,background .5s ease;position:relative;overflow:hidden;}
+.crit::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--copper);
+  transform:scaleY(0);transform-origin:top;transition:transform .45s ease;}
+.crit:hover{border-color:var(--border-mid);transform:translateY(-2px);background:#141210;}
+.crit[data-checked="true"]::before{transform:scaleY(1);}
+.crit .crit-label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.08em;
+  font-size:clamp(0.86rem,1.6vw,0.98rem);color:#cfccc6;transition:color .4s ease;flex:1;}
+.crit[data-checked="true"] .crit-label{color:var(--white);}
+.crit .crit-meta{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.18em;
+  font-size:0.56rem;color:var(--muted);transition:color .4s ease;}
+.crit[data-checked="true"] .crit-meta{color:var(--copper);}
+.crit-summary{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:clamp(26px,3.4vw,40px);}
+.crit-summary .cs-count{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--white);line-height:0.9;}
+.crit-summary .cs-count b{color:var(--copper);}
+.crit-summary .cs-bar{flex:1;min-width:200px;height:6px;background:var(--border);border-radius:6px;overflow:hidden;position:relative;}
+.crit-summary .cs-bar span{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:6px;
+  background:linear-gradient(90deg,var(--copper-dark),var(--copper));transition:width 1.2s cubic-bezier(.2,.7,.2,1);}
+
+/* ============ LAUNCH JOURNEY (expandable) ============ */
+.journey{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,18px);align-items:start;}
+.jcard{background:var(--card);border:1px solid var(--border);position:relative;overflow:hidden;cursor:pointer;
+  transition:border-color .5s ease,transform .5s ease,background .5s ease;}
+.jcard::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,var(--copper),var(--copper-dark));transform:scaleX(0);transform-origin:left;
+  transition:transform .6s ease;}
+.jcard.open::before,.jcard:hover::before{transform:scaleX(1);}
+.jcard:hover{border-color:var(--copper-dark);transform:translateY(-3px);}
+.jcard.open{border-color:var(--copper-dark);}
+.jhead{padding:clamp(24px,3vw,34px);}
+.jcard .j-idx{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,5vw,3.4rem);color:var(--copper-dark);
+  line-height:0.7;display:block;margin-bottom:18px;}
+.jcard .j-tag{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.24em;
+  font-size:0.58rem;color:var(--copper);margin-bottom:10px;}
+.jcard h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.7rem,3vw,2.2rem);color:var(--white);
+  text-transform:uppercase;}
+.jcard .j-desc{font-size:0.86rem;color:#a7a49e;margin-top:12px;line-height:1.55;}
+.jcard .j-toggle{display:flex;align-items:center;gap:8px;margin-top:20px;
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.6rem;color:var(--copper);}
+.jcard .j-toggle .plus{width:16px;height:16px;position:relative;transition:transform .4s ease;}
+.jcard .j-toggle .plus::before,.jcard .j-toggle .plus::after{content:"";position:absolute;background:var(--copper);}
+.jcard .j-toggle .plus::before{left:0;right:0;top:50%;height:1px;transform:translateY(-50%);}
+.jcard .j-toggle .plus::after{top:0;bottom:0;left:50%;width:1px;transform:translateX(-50%);transition:opacity .3s ease;}
+.jcard.open .j-toggle .plus{transform:rotate(90deg);}
+.jcard.open .j-toggle .plus::after{opacity:0;}
+.jbody{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,.1,.2,1);}
+.jbody-inner{padding:0 clamp(24px,3vw,34px) clamp(26px,3vw,34px);border-top:1px solid var(--border);margin-top:4px;}
+.jbody-inner .jb-obj{padding-top:20px;}
+.j-obj-label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.56rem;color:var(--muted);margin-bottom:12px;}
+.tick-list{list-style:none;}
+.tick-list li{font-size:0.84rem;color:#bdbab4;padding:8px 0 8px 18px;position:relative;border-top:1px solid var(--border);}
+.tick-list li:first-child{border-top:none;}
+.tick-list li::before{content:"";position:absolute;left:0;top:16px;width:7px;height:1px;background:var(--copper);}
+.jmile{margin-top:18px;padding:14px 16px;border-left:2px solid var(--copper);
+  background:linear-gradient(100deg,rgba(187,114,90,0.07),transparent 70%);}
+.jmile .jm-l{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.54rem;color:var(--copper);margin-bottom:5px;}
+.jmile p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.02rem;color:var(--white);}
+@media(max-width:820px){.journey{grid-template-columns:1fr;}}
+
+/* ============ CURRENT FOCUS (two workspaces) ============ */
+.focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);}
+.ws{background:var(--card);border:1px solid var(--border);padding:clamp(22px,2.8vw,32px);
+  position:relative;overflow:hidden;}
+.ws::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,var(--copper),var(--copper-dark));}
+.ws-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px;}
+.ws-team{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.58rem;color:var(--copper);margin-bottom:8px;}
+.ws-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,2.6vw,2rem);color:var(--white);
+  text-transform:uppercase;line-height:0.95;}
+.ws-people{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.6rem;color:var(--muted);margin-top:8px;}
+.ws-pct{text-align:right;flex:none;}
+.ws-pct .n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.4vw,2.5rem);color:var(--copper);line-height:0.8;}
+.ws-pct .l{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.52rem;color:var(--muted);margin-top:4px;}
+.ws-bar{height:5px;background:var(--border);border-radius:6px;overflow:hidden;position:relative;margin:16px 0 4px;}
+.ws-bar span{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:6px;
+  background:linear-gradient(90deg,var(--copper-dark),var(--copper));transition:width 1s cubic-bezier(.2,.7,.2,1);}
+.ws-block{margin-top:22px;}
+.ws-block-title{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.22em;
+  font-size:0.6rem;color:var(--copper);margin-bottom:10px;display:flex;align-items:center;gap:9px;}
+.ws-block-title::before{content:"";width:16px;height:1px;background:var(--copper-dark);flex:none;}
+.ws-block-title .wbt-count{margin-left:auto;color:var(--muted);letter-spacing:0.14em;font-size:0.9em;}
+.ws-list{}
+.ws-item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-top:1px solid var(--border);
+  position:relative;}
+.ws-item:first-child{border-top:none;}
+.ws-item .wt{font-size:0.86rem;color:#bdbab4;transition:color .4s ease;line-height:1.45;flex:1;
+  background:transparent;border:none;outline:none;font-family:'Barlow',sans-serif;font-weight:300;
+  padding:0;resize:none;overflow:hidden;min-height:1.4em;}
+.ws-item .wt:focus{color:var(--white);}
+.ws-item .wt::placeholder{color:#5a5751;font-style:italic;}
+.ws-item[data-checked="true"] .wt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--copper-dark);}
+.ws-item .wt.noline{}
+.ws-del{flex:none;width:20px;height:20px;border-radius:5px;border:1px solid transparent;
+  background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:all .3s ease;font-size:0.9rem;line-height:1;}
+.ws-item:hover .ws-del{opacity:1;}
+.ws-del:hover{color:var(--copper);border-color:var(--copper-dark);}
+.ws-add{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 0;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.6rem;color:var(--muted);transition:color .3s ease;background:none;border:none;}
+.ws-add:hover{color:var(--copper);}
+.ws-add .pl{width:15px;height:15px;border:1px solid currentColor;border-radius:4px;position:relative;flex:none;}
+.ws-add .pl::before,.ws-add .pl::after{content:"";position:absolute;background:currentColor;}
+.ws-add .pl::before{left:3px;right:3px;top:50%;height:1px;transform:translateY(-50%);}
+.ws-add .pl::after{top:3px;bottom:3px;left:50%;width:1px;transform:translateX(-50%);}
+.ws-empty{font-size:0.8rem;color:#5a5751;font-style:italic;padding:6px 0;}
+.ws-note textarea{width:100%;min-height:70px;resize:vertical;background:rgba(255,255,255,0.015);
+  border:1px solid var(--border);border-radius:5px;padding:12px 14px;color:#cfccc6;
+  font-family:'Barlow',sans-serif;font-weight:300;font-size:0.85rem;line-height:1.55;
+  transition:border-color .4s ease;}
+.ws-note textarea:focus{outline:none;border-color:var(--copper-dark);}
+.ws-note textarea::placeholder{color:#5a5751;font-style:italic;}
+@media(max-width:820px){.focus-grid{grid-template-columns:1fr;}}
+
+/* ============ PROJECT PHASES (accordion, interactive) ============ */
+.acc{border:1px solid var(--border);background:var(--card);}
+.acc + .acc{border-top:none;}
+.acc-head{display:flex;align-items:center;gap:clamp(14px,2.2vw,26px);padding:clamp(22px,2.8vw,32px);
+  cursor:pointer;transition:background .4s ease;}
+.acc-head:hover{background:#141210;}
+.acc-idx{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--copper-dark);
+  line-height:0.7;flex:none;transition:color .4s ease;}
+.acc.open .acc-idx{color:var(--copper);}
+.acc-heit{flex:1;min-width:0;}
+.acc-tag{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.24em;
+  font-size:0.56rem;color:var(--copper);margin-bottom:6px;}
+.acc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--white);
+  text-transform:uppercase;line-height:0.95;}
+.acc-obj{font-size:0.82rem;color:#9a978f;margin-top:6px;max-width:60ch;line-height:1.5;}
+.acc-prog{flex:none;width:clamp(120px,16vw,180px);text-align:right;}
+.acc-prog .ap-top{display:flex;align-items:baseline;justify-content:flex-end;gap:8px;}
+.acc-prog .ap-pct{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,2.6vw,1.9rem);color:var(--copper);line-height:0.8;}
+.acc-prog .ap-frac{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;font-size:0.6rem;color:var(--muted);text-transform:uppercase;}
+.acc-prog .ap-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden;position:relative;margin-top:8px;}
+.acc-prog .ap-bar span{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;
+  background:linear-gradient(90deg,var(--copper-dark),var(--copper));transition:width 1s cubic-bezier(.2,.7,.2,1);}
+.acc-plus{width:20px;height:20px;position:relative;flex:none;transition:transform .4s ease;}
+.acc-plus::before,.acc-plus::after{content:"";position:absolute;background:var(--copper);}
+.acc-plus::before{left:0;right:0;top:50%;height:1px;transform:translateY(-50%);}
+.acc-plus::after{top:0;bottom:0;left:50%;width:1px;transform:translateX(-50%);transition:opacity .3s ease;}
+.acc.open .acc-plus{transform:rotate(90deg);}
+.acc.open .acc-plus::after{opacity:0;}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .7s cubic-bezier(.4,.1,.2,1);}
+.acc-body-inner{padding:0 clamp(22px,2.8vw,32px) clamp(26px,3vw,34px);}
+.acc-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);}
+.acc-cols > div{padding:clamp(20px,2.6vw,28px);}
+.acc-cols > div:first-child{border-right:1px solid var(--border);}
+.acc-col-team{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.6rem;color:var(--copper);margin-bottom:6px;}
+.acc-col-people{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:0.54rem;color:var(--muted);margin-bottom:16px;}
+.obj-item{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--border);cursor:pointer;}
+.obj-item:first-child{border-top:none;}
+.obj-item .chk{--sz:20px;}
+.obj-item .ot{font-size:0.84rem;color:#bdbab4;transition:color .4s ease;line-height:1.4;}
+.obj-item[data-checked="true"] .ot{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--copper-dark);}
+.acc-mile{margin-top:20px;padding:16px 20px;border:1px solid var(--copper-dark);
+  background:linear-gradient(120deg,rgba(187,114,90,0.10),transparent 60%);
+  display:flex;align-items:center;gap:16px;}
+.acc-mile .am-l{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.24em;
+  font-size:0.56rem;color:var(--copper);flex:none;}
+.acc-mile p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2vw,1.28rem);color:var(--white);}
+@media(max-width:720px){.acc-cols{grid-template-columns:1fr;}
+  .acc-cols > div:first-child{border-right:none;border-bottom:1px solid var(--border);}
+  .acc-mile{flex-direction:column;align-items:flex-start;gap:8px;}
+  .acc-prog{display:none;}}
+
+/* ============ SHARED MILESTONES ============ */
+.mile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:clamp(12px,1.6vw,16px);}
+.mstone{background:var(--card);border:1px solid var(--border);position:relative;overflow:hidden;
+  transition:border-color .5s ease,transform .5s ease,background .5s ease;}
+.mstone::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 25%,rgba(187,114,90,0.16),transparent 60%);transition:opacity .6s ease;}
+.mstone:hover{transform:translateY(-4px);border-color:var(--border-mid);}
+.m-top{padding:clamp(22px,2.6vw,28px);cursor:pointer;text-align:center;position:relative;z-index:2;}
+.mstone .m-ring{width:56px;height:56px;margin:0 auto 18px;border-radius:50%;
+  border:1px solid var(--border-mid);display:flex;align-items:center;justify-content:center;
+  position:relative;transition:all .5s ease;}
+.mstone .m-ring svg{width:24px;height:24px;stroke:var(--muted);fill:none;stroke-width:1.5;transition:stroke .5s ease;}
+.mstone .m-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2vw,1.4rem);color:#cfccc6;
+  text-transform:uppercase;line-height:1;transition:color .5s ease;}
+.mstone .m-state{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.54rem;color:var(--muted);margin-top:10px;transition:color .5s ease;}
+.mstone.lit{border-color:var(--copper);background:#151110;}
+.mstone.lit::after{opacity:1;}
+.mstone.lit .m-ring{border-color:var(--copper);background:var(--copper);box-shadow:0 0 22px rgba(187,114,90,0.5);}
+.mstone.lit .m-ring svg{stroke:var(--black);}
+.mstone.lit .m-name{color:var(--white);}
+.mstone.lit .m-state{color:var(--copper);}
+.mstone.celebrate .m-ring{animation:mring 0.7s cubic-bezier(.2,.7,.2,1);}
+@keyframes mring{0%{transform:scale(1);}35%{transform:scale(1.18);box-shadow:0 0 34px rgba(187,114,90,0.75);}100%{transform:scale(1);}}
+.m-meta{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.4,.1,.2,1);
+  border-top:1px solid var(--border);position:relative;z-index:2;}
+.mstone.lit .m-meta{border-top-color:var(--copper-dark);}
+.m-meta-inner{padding:clamp(16px,2vw,20px);display:flex;flex-direction:column;gap:12px;}
+.m-field{display:flex;flex-direction:column;gap:5px;}
+.m-field label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.18em;
+  font-size:0.52rem;color:var(--copper);}
+.m-field .m-date{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em;font-size:0.82rem;color:var(--white);}
+.m-field input,.m-field textarea{background:rgba(255,255,255,0.015);border:1px solid var(--border);
+  border-radius:5px;padding:8px 11px;color:#cfccc6;font-family:'Barlow',sans-serif;font-weight:300;
+  font-size:0.82rem;transition:border-color .3s ease;}
+.m-field input:focus,.m-field textarea:focus{outline:none;border-color:var(--copper-dark);}
+.m-field textarea{resize:vertical;min-height:52px;line-height:1.5;}
+.m-field input::placeholder,.m-field textarea::placeholder{color:#5a5751;font-style:italic;}
+.mile-line{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:clamp(28px,3.4vw,40px);
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.18em;font-size:0.72rem;color:var(--muted);}
+.mile-line b{color:var(--copper);font-family:'Bebas Neue',sans-serif;font-size:1.4em;letter-spacing:0.02em;}
+
+/* ============ LAUNCH READINESS ============ */
+.ready-wrap{display:grid;grid-template-columns:auto 1fr;gap:clamp(30px,5vw,72px);align-items:center;}
+.ring-box{display:flex;flex-direction:column;align-items:center;gap:16px;}
+.ring{position:relative;width:clamp(220px,32vw,300px);height:clamp(220px,32vw,300px);}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.ring .track{fill:none;stroke:var(--border);stroke-width:6;}
+.ring .prog{fill:none;stroke:url(#ringgrad);stroke-width:6;stroke-linecap:round;
+  transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 0 8px rgba(187,114,90,0.5));}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-pct{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.4rem,9vw,5.4rem);color:var(--white);line-height:0.8;}
+.ring-pct .sym{color:var(--copper);font-size:0.5em;}
+.ring-label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.3em;
+  font-size:clamp(0.62rem,1.4vw,0.74rem);color:var(--copper);margin-top:10px;}
+.ready-side h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--white);
+  text-transform:uppercase;margin-bottom:8px;}
+.ready-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);margin:22px 0 8px;}
+.rstat{background:var(--card);padding:16px 18px;transition:background .4s ease;}
+.rstat:hover{background:#151110;}
+.rstat .rsv{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--white);line-height:0.85;}
+.rstat .rsv .u{color:var(--copper);font-size:0.6em;}
+.rstat .rsv.text{font-size:clamp(1rem,2vw,1.3rem);}
+.rstat .rsl{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:0.54rem;color:var(--muted);margin-top:8px;}
+.ready-weights{margin-top:20px;}
+.rw-title{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.2em;
+  font-size:0.58rem;color:var(--copper);margin-bottom:12px;}
+.rw-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.rw-row .rw-l{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.1em;
+  font-size:0.62rem;color:#a7a49e;width:150px;flex:none;}
+.rw-row .rw-l .w{color:var(--muted);}
+.rw-row .rw-bar{flex:1;height:4px;background:var(--border);border-radius:4px;overflow:hidden;position:relative;}
+.rw-row .rw-bar span{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;
+  background:linear-gradient(90deg,var(--copper-dark),var(--copper));transition:width 1s cubic-bezier(.2,.7,.2,1);}
+.rw-row .rw-v{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;color:var(--white);width:34px;text-align:right;flex:none;}
+.ready-disclaimer{font-family:'Barlow',sans-serif;font-style:italic;font-size:0.78rem;color:#6f6c66;
+  margin-top:24px;max-width:60ch;line-height:1.6;}
+@media(max-width:820px){.ready-wrap{grid-template-columns:1fr;justify-items:center;text-align:center;}
+  .rw-row .rw-l{width:auto;}}
+
+/* ============ FOOTER ============ */
+footer{padding:clamp(56px,7vw,84px) 0 clamp(40px,5vw,60px);text-align:center;position:relative;overflow:hidden;}
+footer::after{content:"";position:absolute;bottom:0;left:0;right:0;height:60%;
+  background:radial-gradient(ellipse at 50% 100%,rgba(187,114,90,0.09),transparent 70%);pointer-events:none;}
+footer .lockup-c{display:flex;justify-content:center;align-items:center;gap:14px;position:relative;z-index:2;}
+footer .lockup-c .nav-mark{height:26px;}
+.footer-mark{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);color:var(--white);
+  text-transform:uppercase;letter-spacing:0.03em;margin-top:clamp(26px,4vw,42px);position:relative;z-index:2;}
+.footer-mark .c{color:var(--copper);}
+.footer-tag{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--copper-light);
+  font-size:clamp(1.1rem,3vw,1.5rem);margin-top:12px;position:relative;z-index:2;}
+.footer-teams{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 28px;margin-top:22px;position:relative;z-index:2;}
+.footer-teams span{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.62rem;color:#8a8781;}
+.footer-teams span b{color:var(--copper);font-weight:500;}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.3em;
+  font-size:0.64rem;color:var(--muted);margin-top:24px;position:relative;z-index:2;}
+
+/* ============ TOAST ============ */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--card);border:1px solid var(--copper-dark);color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;font-size:0.68rem;
+  padding:13px 22px;border-radius:4px;z-index:9998;opacity:0;pointer-events:none;
+  transition:opacity .4s ease,transform .4s ease;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ============ COMMAND CENTER ============ */
+.cc-overlay{position:fixed;inset:0;z-index:1000;background:rgba(4,4,4,0.62);backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .4s ease;}
+.cc-overlay.open{opacity:1;pointer-events:auto;}
+.cc-panel{position:fixed;top:0;right:0;bottom:0;z-index:1001;width:min(680px,100%);
+  background:linear-gradient(180deg,#0c0a09,var(--black) 40%);border-left:1px solid var(--border);
+  box-shadow:-30px 0 80px rgba(0,0,0,0.6);transform:translateX(102%);
+  transition:transform .5s cubic-bezier(.4,.1,.2,1);display:flex;flex-direction:column;}
+.cc-panel.open{transform:translateX(0);}
+.cc-top{flex:none;padding:clamp(20px,3vw,28px) clamp(20px,3vw,30px) 0;position:relative;}
+.cc-top::after{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,var(--copper),var(--copper-dark),transparent);}
+.cc-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.cc-eyebrow{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.4em;
+  font-size:0.6rem;color:var(--copper);margin-bottom:10px;}
+.cc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--white);
+  text-transform:uppercase;line-height:0.9;}
+.cc-sub{font-family:'Barlow',sans-serif;font-style:italic;font-size:0.84rem;color:var(--copper-light);margin-top:6px;}
+.cc-close{flex:none;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .3s ease;}
+.cc-close:hover{color:var(--white);border-color:var(--copper-dark);transform:rotate(90deg);}
+.cc-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;}
+.cc-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:clamp(20px,3vw,26px);
+  padding-bottom:2px;}
+.cc-tabs::-webkit-scrollbar{display:none;}
+.cc-tab{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:0.62rem;color:var(--muted);background:transparent;border:1px solid var(--border);
+  border-radius:20px;padding:8px 15px;cursor:pointer;white-space:nowrap;transition:all .3s ease;flex:none;}
+.cc-tab:hover{color:var(--white);border-color:var(--border-mid);}
+.cc-tab.active{color:var(--copper);border-color:var(--copper-dark);
+  background:linear-gradient(120deg,rgba(187,114,90,0.12),transparent);}
+.cc-body{flex:1;overflow-y:auto;padding:clamp(22px,3vw,30px);scrollbar-width:thin;scrollbar-color:var(--border-mid) transparent;}
+.cc-body::-webkit-scrollbar{width:8px;}
+.cc-body::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:8px;}
+.cc-view{display:none;animation:ccfade .5s cubic-bezier(.2,.7,.2,1);}
+.cc-view.active{display:block;}
+@keyframes ccfade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.cc-section-h{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.24em;
+  font-size:0.64rem;color:var(--copper);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.cc-section-h::before{content:"";width:20px;height:1px;background:var(--copper-dark);flex:none;}
+.cc-desc{font-size:0.85rem;color:#9a978f;line-height:1.6;margin-bottom:20px;}
+
+/* insights */
+.ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:24px;}
+.ins{background:var(--card);padding:18px 20px;transition:background .4s ease;}
+.ins:hover{background:#151110;}
+.ins .iv{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:0.85;}
+.ins .iv .u{color:var(--copper);font-size:0.6em;}
+.ins .iv.text{font-size:1.15rem;color:var(--copper-light);}
+.ins .il{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:0.54rem;color:var(--muted);margin-top:9px;}
+.ins.wide{grid-column:1 / -1;}
+.ins-ring{display:flex;align-items:center;gap:16px;}
+.ins-ring .mini-ring{width:66px;height:66px;flex:none;position:relative;}
+.ins-ring .mini-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.ins-ring .mini-ring .t{fill:none;stroke:var(--border);stroke-width:6;}
+.ins-ring .mini-ring .p{fill:none;stroke:var(--copper);stroke-width:6;stroke-linecap:round;
+  transition:stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1);}
+.ins-ring .mini-c{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--white);}
+
+/* generic editable list cards (decisions, parking, dependencies) */
+.entry{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;
+  margin-bottom:12px;position:relative;transition:border-color .4s ease;}
+.entry:hover{border-color:var(--border-mid);}
+.entry::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;
+  background:var(--copper-dark);border-radius:2px;}
+.entry .en-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.entry .en-field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px;}
+.entry .en-field.full{flex-basis:100%;}
+.entry label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.5rem;color:var(--copper);}
+.entry input,.entry textarea,.entry select{background:rgba(255,255,255,0.015);border:1px solid var(--border);
+  border-radius:5px;padding:8px 11px;color:#e2dfd9;font-family:'Barlow',sans-serif;font-weight:300;
+  font-size:0.84rem;transition:border-color .3s ease;width:100%;}
+.entry input:focus,.entry textarea:focus,.entry select:focus{outline:none;border-color:var(--copper-dark);}
+.entry textarea{resize:vertical;min-height:46px;line-height:1.5;}
+.entry input::placeholder,.entry textarea::placeholder{color:#5a5751;font-style:italic;}
+.entry select{cursor:pointer;appearance:none;-webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--copper) 50%),linear-gradient(135deg,var(--copper) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 15px,calc(100% - 10px) 15px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:28px;}
+.entry select option{background:#141210;color:#e2dfd9;}
+.entry .en-del{position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:5px;
+  border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;opacity:0;transition:all .3s ease;font-size:0.95rem;}
+.entry:hover .en-del{opacity:1;}
+.entry .en-del:hover{color:var(--copper);border-color:var(--copper-dark);}
+.pill-status{display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;
+  text-transform:uppercase;letter-spacing:0.14em;font-size:0.56rem;padding:4px 10px;border-radius:14px;
+  border:1px solid var(--border-mid);color:var(--muted);}
+.add-entry{display:flex;align-items:center;gap:9px;padding:12px 16px;cursor:pointer;width:100%;
+  background:transparent;border:1px dashed var(--border-mid);border-radius:8px;color:var(--muted);
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.16em;
+  font-size:0.62rem;transition:all .3s ease;margin-top:4px;}
+.add-entry:hover{color:var(--copper);border-color:var(--copper-dark);background:rgba(187,114,90,0.04);}
+.add-entry .pl{width:16px;height:16px;border:1px solid currentColor;border-radius:4px;position:relative;flex:none;}
+.add-entry .pl::before,.add-entry .pl::after{content:"";position:absolute;background:currentColor;}
+.add-entry .pl::before{left:3px;right:3px;top:50%;height:1px;transform:translateY(-50%);}
+.add-entry .pl::after{top:3px;bottom:3px;left:50%;width:1px;transform:translateX(-50%);}
+
+/* meeting hub */
+.mh-block{margin-bottom:18px;}
+.mh-block label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.18em;
+  font-size:0.58rem;color:var(--copper);margin-bottom:8px;display:block;}
+.mh-block textarea{width:100%;min-height:74px;resize:vertical;background:rgba(255,255,255,0.015);
+  border:1px solid var(--border);border-radius:6px;padding:12px 14px;color:#e2dfd9;
+  font-family:'Barlow',sans-serif;font-weight:300;font-size:0.86rem;line-height:1.6;transition:border-color .3s ease;}
+.mh-block textarea:focus{outline:none;border-color:var(--copper-dark);}
+.mh-block textarea::placeholder{color:#5a5751;font-style:italic;}
+
+/* activity feed */
+.feed{position:relative;padding-left:22px;}
+.feed::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border);}
+.feed-item{position:relative;padding:0 0 18px;}
+.feed-item::before{content:"";position:absolute;left:-21px;top:5px;width:9px;height:9px;border-radius:50%;
+  background:var(--black);border:1px solid var(--copper-dark);}
+.feed-item.fresh::before{background:var(--copper);box-shadow:0 0 10px var(--copper);border-color:var(--copper);}
+.feed-item .fi-text{font-size:0.86rem;color:#cfccc6;line-height:1.45;}
+.feed-item .fi-text b{color:var(--white);font-weight:500;}
+.feed-item .fi-time{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:0.54rem;color:var(--muted);margin-top:4px;}
+.feed-empty,.cc-empty{text-align:center;padding:34px 20px;color:#5a5751;font-style:italic;font-size:0.86rem;
+  border:1px dashed var(--border);border-radius:8px;}
+
+/* snapshots */
+.snap-create{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.snap-create input{flex:1;min-width:180px;background:rgba(255,255,255,0.015);border:1px solid var(--border);
+  border-radius:6px;padding:11px 14px;color:#e2dfd9;font-family:'Barlow',sans-serif;font-size:0.86rem;transition:border-color .3s ease;}
+.snap-create input:focus{outline:none;border-color:var(--copper-dark);}
+.snap-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;}
+.snap-chip{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.1em;
+  font-size:0.56rem;color:var(--muted);border:1px solid var(--border);border-radius:14px;padding:5px 11px;
+  cursor:pointer;transition:all .3s ease;background:transparent;}
+.snap-chip:hover{color:var(--copper);border-color:var(--copper-dark);}
+.snap{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:12px;
+  transition:border-color .4s ease;}
+.snap:hover{border-color:var(--border-mid);}
+.snap-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.snap-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--white);text-transform:uppercase;letter-spacing:0.02em;}
+.snap-time{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.12em;font-size:0.54rem;color:var(--muted);}
+.snap-meta{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0;}
+.snap-meta .sm{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;color:#a7a49e;letter-spacing:0.06em;}
+.snap-meta .sm b{color:var(--copper);}
+.snap-acts{display:flex;gap:8px;flex-wrap:wrap;}
+.mini-btn{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:0.58rem;color:var(--muted);background:transparent;border:1px solid var(--border);
+  border-radius:5px;padding:7px 13px;cursor:pointer;transition:all .3s ease;}
+.mini-btn:hover{color:var(--white);border-color:var(--copper-dark);}
+.mini-btn.primary{color:var(--copper);border-color:var(--copper-dark);}
+.mini-btn.danger:hover{color:#d98b73;border-color:#8A4F3B;}
+
+/* project data */
+.data-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
+.data-btn{display:flex;align-items:flex-start;gap:13px;text-align:left;padding:18px;cursor:pointer;
+  background:var(--card);border:1px solid var(--border);border-radius:8px;transition:all .35s ease;}
+.data-btn:hover{border-color:var(--copper-dark);background:#151110;transform:translateY(-2px);}
+.data-btn .db-ic{width:38px;height:38px;border-radius:9px;flex:none;
+  background:radial-gradient(circle at 50% 30%,rgba(187,114,90,0.16),rgba(8,8,8,0.4));
+  border:1px solid var(--copper-dark);display:flex;align-items:center;justify-content:center;}
+.data-btn .db-ic svg{width:19px;height:19px;stroke:var(--copper);fill:none;stroke-width:1.6;}
+.data-btn .db-t{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.12em;
+  font-size:0.78rem;color:var(--white);}
+.data-btn .db-d{font-size:0.74rem;color:#8a8781;margin-top:4px;line-height:1.4;}
+.data-btn.danger .db-ic{border-color:#5a3a30;}
+@media(max-width:560px){.data-actions{grid-template-columns:1fr;}.ins-grid{grid-template-columns:1fr;}}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  .reveal,.stagger > *{opacity:1!important;transform:none!important;transition:none!important;}
+  html{scroll-behavior:auto;}
+  .nav-mark span,.phase-track .pt.active::before,.scroll-hint .line::after,.nav-phase .dot,.chk.pop,.mstone.celebrate .m-ring{animation:none!important;}
+  .hero-parallax{transition:none!important;}
+  .cc-panel,.cc-overlay,.cc-view{transition:none!important;animation:none!important;}
+}
+
+/* ============ PRINT ============ */
+@media print{
+  body{background:#fff;color:#000;}
+  .grain,.nav,.hero-bg,.hero-grid,.scroll-hint,footer::after,.toast,.cc-overlay,.cc-panel,.ws-del,.ws-add,.add-entry,.en-del{display:none!important;}
+  .reveal,.stagger > *{opacity:1!important;transform:none!important;}
+  header.hero{min-height:auto;padding-top:20px;}
+  section{padding:24px 0;}
+  .crit,.vnode,.jcard,.ws,.acc,.mstone,.rstat,.jbody,.acc-body,.entry,.snap{break-inside:avoid;}
+  .jbody,.acc-body,.m-meta{max-height:none!important;}
+  .hero-title,h2.section-title,.jcard h3,.acc-title,.ws-name,.vnode h3,.mstone .m-name{color:#111!important;}
+  p,.lead,.j-desc,.acc-obj{color:#333!important;}
+  .divider{opacity:1;}
+}
+</style>
+</head>
+<body>
+<svg class="grain"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+
+<!-- ============ STICKY NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">
+    <div class="nav-mark"><span></span><span></span><span></span><span></span></div>
+    <div class="nav-name">Legacy <b>Performance</b> Institute</div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#mission">Mission</a>
+    <a href="#vision">Vision</a>
+    <a href="#success">Success</a>
+    <a href="#journey">Journey</a>
+    <a href="#focus">Focus</a>
+    <a href="#phases">Phases</a>
+    <a href="#milestones">Milestones</a>
+    <a href="#ready">Launch</a>
+  </div>
+  <div class="nav-tools">
+    <div class="nav-phase"><span class="dot"></span> Phase <b data-nav-phase>Foundation</b></div>
+    <button class="cc-btn" id="ccOpen" aria-label="Open Command Center">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="lbl">Command Center</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <div class="hero-glow glow-a hero-parallax" data-depth="26"></div>
+    <div class="hero-glow glow-b hero-parallax" data-depth="-18"></div>
+    <div class="hero-glow glow-c hero-parallax" data-depth="40"></div>
+  </div>
+  <div class="hero-grid hero-parallax" data-depth="10"></div>
+
+  <div class="hero-inner wrap">
+    <div class="hero-lockup reveal">
+      <div class="nav-mark"><span></span><span></span><span></span><span></span></div>
+      <div class="nav-name">Daily Grind Media × Legacy Performance</div>
+    </div>
+  </div>
+
+  <div class="hero-inner wrap">
+    <div class="hero-client reveal">Trainer Education Platform · Launch Roadmap</div>
+    <h1 class="hero-title reveal">Legacy Performance<span class="row2">Institute</span></h1>
+    <p class="hero-sub reveal">Building the future of trainer education through a <b>hybrid learning experience</b> that combines structured online education with real-world implementation.</p>
+
+    <div class="phase-strip reveal">
+      <div class="phase-now">
+        <div class="pn-top">
+          <span class="pn-eyebrow">Current Phase</span>
+          <span class="pn-name" data-phase-name>Foundation</span>
+          <span class="pn-pct"><span data-phase-obj-pct>0</span>% Phase Progress</span>
+        </div>
+        <div class="pn-bar"><span data-phase-obj-bar></span></div>
+        <div class="phase-track" id="phaseTrack">
+          <button class="pt" data-phase="p1">01 · Foundation</button>
+          <button class="pt" data-phase="p2">02 · Production</button>
+          <button class="pt" data-phase="p3">03 · Integration &amp; Launch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-inner wrap">
+    <div class="scroll-hint reveal"><div class="line"></div> Scroll to explore the build</div>
+  </div>
+</header>
+
+<!-- ============ 01 MISSION ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="mission">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">01</span> Mission</div>
+    <div class="mission-wrap">
+      <div class="mission-mark reveal">“</div>
+      <p class="mission-statement reveal">The Legacy Performance Institute Trainer Education Platform is a <span class="accent">hybrid business development system</span> designed to help trainers build <span class="accent">sustainable businesses</span> through structured online education, practical implementation, and live coaching.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 VISION ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="vision">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">02</span> Vision</div>
+    <h2 class="section-title reveal">The Trainer's<br>Evolution</h2>
+    <p class="lead reveal">Every trainer who moves through the Institute follows one continuous arc — from delivering sessions to shaping the profession itself.</p>
+    <div class="vision-chain stagger" style="margin-top:clamp(30px,4vw,48px)">
+      <div class="vnode"><div class="v-step">Start</div><div class="v-num">01</div><h3>Trainer</h3><p>Delivers great sessions and builds a reputation for real results.</p><div class="v-arrow">→</div></div>
+      <div class="vnode"><div class="v-step">Grow</div><div class="v-num">02</div><h3>Business Owner</h3><p>Turns skill into structure — systems, pricing, and repeatable revenue.</p><div class="v-arrow">→</div></div>
+      <div class="vnode"><div class="v-step">Scale</div><div class="v-num">03</div><h3>Professional Coach</h3><p>Coaches with authority, retention, and a signature methodology.</p><div class="v-arrow">→</div></div>
+      <div class="vnode"><div class="v-step">Lead</div><div class="v-num">04</div><h3>Industry Leader</h3><p>Sets the standard others follow and mentors the next generation.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 SUCCESS CRITERIA ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="success">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">03</span> Success Criteria</div>
+    <h2 class="section-title reveal">What "Done"<br>Looks Like</h2>
+    <p class="lead reveal">The definition of a finished, launch-ready platform. Check items as they land — this list feeds the launch readiness score below.</p>
+
+    <div class="crit-summary reveal">
+      <div class="cs-count"><b data-success-done>0</b> / <span data-success-total>0</span> Complete</div>
+      <div class="cs-bar"><span data-progress-group="success"></span></div>
+    </div>
+
+    <!-- Rendered from DataModel.SUCCESS by SuccessView -->
+    <div class="crit-grid stagger" id="critGrid"></div>
+  </div>
+</section>
+
+<!-- ============ 04 LAUNCH JOURNEY ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="journey">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">04</span> Launch Journey</div>
+    <h2 class="section-title reveal">Three Phases,<br>One Product</h2>
+    <p class="lead reveal">The path from blueprint to launch. Click any phase to expand its objectives.</p>
+    <div class="journey stagger" id="journeyGrid" style="margin-top:clamp(30px,4vw,48px)"></div>
+  </div>
+</section>
+
+<!-- ============ 05 CURRENT FOCUS ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="focus">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">05</span> Current Focus · Active Priorities</div>
+    <h2 class="section-title reveal">The Living<br>Workspace</h2>
+    <p class="lead reveal">Two teams, one product. Add, edit, and check off priorities, deliverables, and open questions directly on the page — everything saves as you go.</p>
+    <div class="focus-grid" id="focusGrid" style="margin-top:clamp(30px,4vw,48px)"></div>
+  </div>
+</section>
+
+<!-- ============ 06 PROJECT PHASES ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="phases">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">06</span> Project Phases</div>
+    <h2 class="section-title reveal">The Full<br>Breakdown</h2>
+    <p class="lead reveal">Every objective, by team, as a working checklist. Each phase tracks its own maturity independently.</p>
+    <div class="acc-list reveal" id="accList" style="margin-top:clamp(30px,4vw,48px)"></div>
+  </div>
+</section>
+
+<!-- ============ 07 SHARED MILESTONES ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="milestones">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">07</span> Shared Milestones</div>
+    <h2 class="section-title reveal">Moments That<br>Move Us Forward</h2>
+    <p class="lead reveal">The five checkpoints both teams reach together. Mark each as it's achieved and log who and when — they carry the greatest weight in launch readiness.</p>
+    <div class="mile-line reveal"><span data-mile-done>0</span><span>of</span><b data-mile-total>5</b><span>Milestones Illuminated</span></div>
+    <div class="mile-grid stagger" id="mileGrid"></div>
+  </div>
+</section>
+
+<!-- ============ 08 LAUNCH READINESS ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<section id="ready">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="sec-num">08</span> Launch Readiness</div>
+    <h2 class="section-title reveal">How Close<br>We Are</h2>
+
+    <div class="ready-wrap" style="margin-top:clamp(20px,3vw,36px)">
+      <div class="ring-box reveal">
+        <div class="ring">
+          <svg viewBox="0 0 120 120">
+            <defs><linearGradient id="ringgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8A4F3B"/><stop offset="1" stop-color="#D4937D"/>
+            </linearGradient></defs>
+            <circle class="track" cx="60" cy="60" r="54"/>
+            <circle class="prog" cx="60" cy="60" r="54" data-ring stroke-dasharray="339.29" stroke-dashoffset="339.29"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-pct"><span data-ring-pct>0</span><span class="sym">%</span></div>
+            <div class="ring-label">Launch Ready</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ready-side reveal">
+        <h3>A Weighted, Living Score</h3>
+        <p style="font-size:0.92rem;line-height:1.6;">Readiness blends four signals — milestones carry the most weight, then success criteria, phase objectives, and current focus. It moves as the team moves.</p>
+
+        <div class="ready-stats">
+          <div class="rstat"><div class="rsv"><span data-completed-tasks>0</span></div><div class="rsl">Completed Tasks</div></div>
+          <div class="rstat"><div class="rsv"><span data-remaining-tasks>0</span></div><div class="rsl">Remaining Tasks</div></div>
+          <div class="rstat"><div class="rsv text" data-current-phase>Foundation</div><div class="rsl">Current Phase</div></div>
+          <div class="rstat"><div class="rsv text" data-next-milestone>—</div><div class="rsl">Next Major Milestone</div></div>
+          <div class="rstat"><div class="rsv"><span data-phase-obj-pct-2>0</span><span class="u">%</span></div><div class="rsl">Progress to Next Phase</div></div>
+          <div class="rstat"><div class="rsv"><span data-mile-done-2>0</span><span class="u"> / 5</span></div><div class="rsl">Milestones Complete</div></div>
+        </div>
+
+        <div class="ready-weights">
+          <div class="rw-title">Readiness Composition</div>
+          <div class="rw-row"><div class="rw-l">Milestones <span class="w">· 40%</span></div><div class="rw-bar"><span data-w-mile></span></div><div class="rw-v" data-wv-mile>0%</div></div>
+          <div class="rw-row"><div class="rw-l">Success Criteria <span class="w">· 25%</span></div><div class="rw-bar"><span data-w-succ></span></div><div class="rw-v" data-wv-succ>0%</div></div>
+          <div class="rw-row"><div class="rw-l">Phase Objectives <span class="w">· 25%</span></div><div class="rw-bar"><span data-w-obj></span></div><div class="rw-v" data-wv-obj>0%</div></div>
+          <div class="rw-row"><div class="rw-l">Current Focus <span class="w">· 10%</span></div><div class="rw-bar"><span data-w-focus></span></div><div class="rw-v" data-wv-focus>0%</div></div>
+        </div>
+
+        <p class="ready-disclaimer">All figures shown here are directional and reflect live progress entered by the team. This roadmap is a working tool — numbers, dates, and scope are reviewed together as the build evolves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<div class="divider-block"><div class="wrap"><div class="divider"></div></div></div>
+<footer>
+  <div class="wrap">
+    <div class="lockup-c">
+      <div class="nav-mark"><span></span><span></span><span></span><span></span></div>
+      <div class="nav-name">Legacy Performance Institute</div>
+    </div>
+    <div class="footer-mark">Build Something<br><span class="c">Trainers Remember</span></div>
+    <div class="footer-tag">Two teams. One product. One shared standard.</div>
+    <div class="footer-teams">
+      <span>Education &amp; Implementation · <b>Scott + Tony</b></span>
+      <span>Platform &amp; Production · <b>Loren + Walter</b></span>
+    </div>
+    <div class="footer-meta">Trainer Education Platform · Living Roadmap · v1.5</div>
+  </div>
+</footer>
+
+<!-- ============ COMMAND CENTER ============ -->
+<div class="cc-overlay" id="ccOverlay"></div>
+<aside class="cc-panel" id="ccPanel" aria-hidden="true">
+  <div class="cc-top">
+    <div class="cc-head-row">
+      <div>
+        <div class="cc-eyebrow">Project Workspace</div>
+        <div class="cc-title">Command Center</div>
+        <div class="cc-sub">Where are we · what are we working on · what's next</div>
+      </div>
+      <button class="cc-close" id="ccClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="cc-tabs" id="ccTabs">
+      <button class="cc-tab active" data-view="insights">Insights</button>
+      <button class="cc-tab" data-view="meetings">Meeting Hub</button>
+      <button class="cc-tab" data-view="decisions">Decisions</button>
+      <button class="cc-tab" data-view="parking">Parking Lot</button>
+      <button class="cc-tab" data-view="deps">Dependencies</button>
+      <button class="cc-tab" data-view="activity">Activity</button>
+      <button class="cc-tab" data-view="snapshots">Snapshots</button>
+      <button class="cc-tab" data-view="data">Project Data</button>
+    </div>
+  </div>
+  <div class="cc-body">
+    <!-- INSIGHTS -->
+    <div class="cc-view active" data-view="insights">
+      <div class="cc-section-h">Executive Overview</div>
+      <div class="ins-grid">
+        <div class="ins wide">
+          <div class="ins-ring">
+            <div class="mini-ring">
+              <svg viewBox="0 0 66 66"><circle class="t" cx="33" cy="33" r="29"/><circle class="p" cx="33" cy="33" r="29" data-ins-ring stroke-dasharray="182.2" stroke-dashoffset="182.2"/></svg>
+              <div class="mini-c" data-ins-ring-pct>0%</div>
+            </div>
+            <div>
+              <div class="iv text" style="color:var(--white)">Launch Readiness</div>
+              <div class="il">Weighted · milestones carry the most</div>
+            </div>
+          </div>
+        </div>
+        <div class="ins"><div class="iv text" data-ins-phase>Foundation</div><div class="il">Current Phase</div></div>
+        <div class="ins"><div class="iv text" data-ins-next>—</div><div class="il">Next Milestone</div></div>
+        <div class="ins"><div class="iv"><span data-ins-done>0</span></div><div class="il">Completed Tasks</div></div>
+        <div class="ins"><div class="iv"><span data-ins-remain>0</span></div><div class="il">Remaining Tasks</div></div>
+        <div class="ins"><div class="iv text" data-ins-active>—</div><div class="il">Most Active Workstream</div></div>
+        <div class="ins"><div class="iv"><span data-ins-mile>0</span><span class="u"> / 5</span></div><div class="il">Milestones Complete</div></div>
+        <div class="ins wide"><div class="iv text" style="font-size:0.95rem;color:#cfccc6;line-height:1.5" data-ins-recent>No activity yet</div><div class="il">Most Recent Activity</div></div>
+      </div>
+    </div>
+
+    <!-- MEETING HUB -->
+    <div class="cc-view" data-view="meetings">
+      <div class="cc-section-h">Meeting Hub</div>
+      <p class="cc-desc">Your central collaboration space. Capture the conversation as it happens — everything saves automatically.</p>
+      <div class="mh-block"><label>Meeting Notes</label><textarea data-meeting="notes" placeholder="What was discussed…"></textarea></div>
+      <div class="mh-block"><label>Action Items</label><textarea data-meeting="actions" placeholder="Who is doing what by when…"></textarea></div>
+      <div class="mh-block"><label>Questions</label><textarea data-meeting="questions" placeholder="Open questions raised in the meeting…"></textarea></div>
+      <div class="mh-block"><label>Decisions Made</label><textarea data-meeting="decisions" placeholder="What we decided today…"></textarea></div>
+      <div class="mh-block"><label>Topics for Next Meeting</label><textarea data-meeting="topics" placeholder="Carry these into next time…"></textarea></div>
+    </div>
+
+    <!-- DECISIONS -->
+    <div class="cc-view" data-view="decisions">
+      <div class="cc-section-h">Decision Log</div>
+      <p class="cc-desc">A structured record of the choices that shaped the build — decision, reasoning, owner, and status.</p>
+      <div id="decisionsList"></div>
+      <button class="add-entry" data-add="decision"><span class="pl"></span> Add Decision</button>
+    </div>
+
+    <!-- PARKING LOT -->
+    <div class="cc-view" data-view="parking">
+      <div class="cc-section-h">Parking Lot</div>
+      <p class="cc-desc">Good ideas that intentionally aren't part of the current build — captured so they're never lost.</p>
+      <div id="parkingList"></div>
+      <button class="add-entry" data-add="parking"><span class="pl"></span> Park an Idea</button>
+    </div>
+
+    <!-- DEPENDENCIES -->
+    <div class="cc-view" data-view="deps">
+      <div class="cc-section-h">Dependencies</div>
+      <p class="cc-desc">What's blocking forward motion. Kept deliberately simple — no Gantt charts here.</p>
+      <div id="depsList"></div>
+      <button class="add-entry" data-add="dep"><span class="pl"></span> Add Dependency</button>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="cc-view" data-view="activity">
+      <div class="cc-section-h">Recent Activity</div>
+      <p class="cc-desc">A running log of everything that's moved — newest first.</p>
+      <div id="activityFeed"></div>
+    </div>
+
+    <!-- SNAPSHOTS -->
+    <div class="cc-view" data-view="snapshots">
+      <div class="cc-section-h">Project Snapshots</div>
+      <p class="cc-desc">Freeze a historical checkpoint of the whole roadmap. Restore or export any snapshot later.</p>
+      <div class="snap-create">
+        <input type="text" id="snapName" placeholder="Snapshot name (e.g. Foundation Complete)">
+        <button class="mini-btn primary" id="snapCreate">Create Snapshot</button>
+      </div>
+      <div class="snap-suggest" id="snapSuggest"></div>
+      <div id="snapList"></div>
+    </div>
+
+    <!-- PROJECT DATA -->
+    <div class="cc-view" data-view="data">
+      <div class="cc-section-h">Project Data</div>
+      <p class="cc-desc">Your entire roadmap lives in this browser. Move it between machines, back it up, or start fresh.</p>
+      <div class="data-actions">
+        <button class="data-btn" id="dataExport">
+          <span class="db-ic"><svg viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M4 21h16"/></svg></span>
+          <span><span class="db-t">Export Roadmap</span><span class="db-d">Download the complete project state as a formatted JSON file.</span></span>
+        </button>
+        <button class="data-btn" id="dataImport">
+          <span class="db-ic"><svg viewBox="0 0 24 24"><path d="M12 21V9M8 13l4-4 4 4M4 3h16"/></svg></span>
+          <span><span class="db-t">Import Roadmap</span><span class="db-d">Restore everything from a previously exported file.</span></span>
+        </button>
+        <button class="data-btn" id="dataSnapshot">
+          <span class="db-ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></span>
+          <span><span class="db-t">Create Snapshot</span><span class="db-d">Capture a named historical checkpoint of today's state.</span></span>
+        </button>
+        <button class="data-btn danger" id="dataReset">
+          <span class="db-ic"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></span>
+          <span><span class="db-t">Reset Roadmap</span><span class="db-d">Clear all local progress after a confirmation.</span></span>
+        </button>
+      </div>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/*==================================================================
+  LEGACY PERFORMANCE INSTITUTE — LIVING ROADMAP
+  Single-file application · no external dependencies.
+
+  This script is organized into small, single-responsibility modules.
+  Each module is an isolated closure that exposes a minimal API; they
+  share one in-memory `state` object and a thin coordination seam
+  (persist / recompute / rerenderAll). Nothing here reaches into
+  another module's internals, so any piece can be replaced in place.
+
+  MODULE MAP (in load order)
+    1.  Utils          Generic helpers: DOM, formatting, ids, files, toast
+    2.  DataModel      Schema constants, default state, normalization/migration
+    3.  Persistence    Storage adapter interface + local adapter + repository
+                       (async by design → swap to Supabase/API with no caller changes)
+    4.  Progress       Pure progress & weighted-readiness calculations
+    5.  Components      Reusable UI builders (checkbox, bars, counters, collapse)
+    6.  ActivityLog    Chronological activity feed (the project timeline of events)
+    7.  Views          Section renderers, each with render() + update():
+                         Hero · SuccessView · TimelineView (Launch Journey) ·
+                         FocusView · PhasesView · MilestonesView · ReadinessView · NavView
+    8.  CommandCenter  Slide-over workspace: Insights, Meeting Hub, Decision Log,
+                       Parking Lot, Dependencies, Activity, Project Data
+    9.  Snapshots      Checkpoint capture / restore / export
+    10. ProjectData    Whole-roadmap export / import / reset
+    11. App            Bootstrap + cross-module coordination
+==================================================================*/
+(function(){
+"use strict";
+
+/* Single source of truth. Assigned once during App.start(). */
+var state = null;
+
+/* -------- coordination seam (keeps modules decoupled) -------- */
+function persist(){ Persistence.save(state); }            // debounced write
+function persistNow(){ return Persistence.saveNow(state); } // immediate write (returns Promise)
+function recompute(){ App.recompute(); }                   // refresh all derived UI
+function rerenderAll(){ App.rerenderAll(); }               // full re-render after import/restore/reset
+
+
+/*==================================================================
+  1. UTILS
+==================================================================*/
+var Utils = (function(){
+  function qs(sel,ctx){ return (ctx||document).querySelector(sel); }
+  function qsa(sel,ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
+  function setText(sel,val){ qsa(sel).forEach(function(el){ el.textContent = val; }); }
+  function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  /* Collision-resistant local id (no backend round-trip needed). */
+  var _seq = 0;
+  function uid(){ _seq++; return 'id' + Date.now().toString(36) + _seq + Math.floor((performance.now()%1)*1e6).toString(36); }
+
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmtDate(ts){ var d=new Date(ts); return MONTHS[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear(); }
+  function fmtTime(ts){ var d=new Date(ts), h=d.getHours(), m=d.getMinutes(), ap=h>=12?'PM':'AM';
+    h=h%12; if(h===0)h=12; return fmtDate(ts)+' · '+h+':'+(m<10?'0'+m:m)+' '+ap; }
+  function relTime(ts){ var s=Math.floor((Date.now()-ts)/1000);
+    if(s<60)return 'Just now'; if(s<3600)return Math.floor(s/60)+'m ago';
+    if(s<86400)return Math.floor(s/3600)+'h ago'; if(s<604800)return Math.floor(s/86400)+'d ago';
+    return fmtDate(ts); }
+
+  function autoGrow(ta){ ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; }
+  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'file'; }
+
+  function downloadJSON(obj,filename){
+    var blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob), a=document.createElement('a');
+    a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+  }
+
+  var toastEl=null, toastTimer=null;
+  function toast(msg){
+    toastEl = toastEl || qs('#toast');
+    if(!toastEl) return;
+    toastEl.textContent = msg; toastEl.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){ toastEl.classList.remove('show'); },2200);
+  }
+
+  return { qs:qs, qsa:qsa, setText:setText, esc:esc, uid:uid,
+           fmtDate:fmtDate, fmtTime:fmtTime, relTime:relTime,
+           autoGrow:autoGrow, slug:slug, downloadJSON:downloadJSON, toast:toast };
+})();
+/* Short aliases used throughout. */
+var $=Utils.qs, $$=Utils.qsa, setText=Utils.setText, esc=Utils.esc, uid=Utils.uid, toast=Utils.toast;
+
+
+/*==================================================================
+  2. DATA MODEL
+  All roadmap content lives here as plain data, so the UI is fully
+  data-driven and the shape maps cleanly onto database rows later.
+==================================================================*/
+var DataModel = (function(){
+
+  var PHASES = [
+    { id:'p1', idx:'01', tag:'Phase One', name:'Foundation',
+      obj:'Create the blueprint for the entire platform before production begins.',
+      mile:'Everyone agrees on exactly what is being built.',
+      edu:['Finalize vision','Level 1 curriculum','Learning objectives','Weekly implementation classes','Homework structure','Accountability','Feedback surveys','Curriculum gaps','Program structure','Success metrics'],
+      plat:['Product Requirements Document','User Journey','Platform Architecture','Dashboard Planning','Module Structure','Resource System','Homework Workflow','UI Direction','Creative Templates','Video Standards','Asset Library'] },
+    { id:'p2', idx:'02', tag:'Phase Two', name:'Production',
+      obj:'Turn the blueprint into a functioning platform.',
+      mile:'The first complete version exists with real curriculum.',
+      edu:['Lesson development','Scripts','Worksheets','Exercises','Assignments','Curriculum revisions'],
+      plat:['Dashboard','Login','Platform Development','Lesson Pages','Resource Library','Progress Tracking','Video Production','Graphics','Downloadables','Marketing Assets'] },
+    { id:'p3', idx:'03', tag:'Phase Three', name:'Integration & Launch',
+      obj:'Polish every component into one seamless trainer experience.',
+      mile:'Trainer platform is ready for onboarding.',
+      edu:['Internal Review','Pilot Trainers','Feedback','Refinement','Final Approval'],
+      plat:['UX Polish','Bug Fixes','Final Assets','Launch Preparation','QA','Go Live'] }
+  ];
+
+  var MILESTONES = [
+    { id:'m-curriculum', name:'Curriculum<br>Approved',  icon:'<path d="M4 6h16M4 12h16M4 18h10"/>' },
+    { id:'m-mvp',        name:'Platform MVP<br>Complete', icon:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16"/>' },
+    { id:'m-creative',   name:'Creative<br>Complete',     icon:'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>' },
+    { id:'m-pilot',      name:'Pilot<br>Complete',        icon:'<path d="M17 20a5 5 0 0 0-10 0"/><circle cx="12" cy="8" r="4"/>' },
+    { id:'m-launch',     name:'Launch<br>Ready',          icon:'<path d="M12 2c3 3 4 7 4 10l-4 3-4-3c0-3 1-7 4-10z"/><path d="M8 15l-2 5 4-2M16 15l2 5-4-2"/>' }
+  ];
+
+  var SUCCESS = [
+    { id:'s-curriculum', label:'Level 1 Curriculum Complete', team:'Education' },
+    { id:'s-platform',   label:'Platform Built',              team:'Production' },
+    { id:'s-video',      label:'Premium Video Lessons',       team:'Production' },
+    { id:'s-resources',  label:'Downloadable Resources',      team:'Production' },
+    { id:'s-classes',    label:'Weekly Implementation Classes',team:'Education' },
+    { id:'s-dashboard',  label:'Trainer Dashboard',           team:'Production' },
+    { id:'s-pilot',      label:'Pilot Group Complete',        team:'Education' },
+    { id:'s-assets',     label:'Launch Assets Ready',         team:'Production' }
+  ];
+
+  /* Current Focus workstreams — the only two-sided, fully-editable content. */
+  var WORKSTREAMS = [
+    { key:'edu',  team:'Workstream A', name:'Education &amp;<br>Implementation', people:'Scott + Tony' },
+    { key:'plat', team:'Workstream B', name:'Platform &amp;<br>Production',       people:'Loren + Walter' }
+  ];
+  var FOCUS_BLOCKS = [
+    { key:'priorities',   label:'Current Priorities', check:true },
+    { key:'deliverables', label:'Next Deliverables',  check:true },
+    { key:'questions',    label:'Open Questions',     check:false },
+    { key:'completed',    label:'Completed',          check:true }
+  ];
+
+  var SNAP_SUGGEST = ['Foundation Kickoff','Foundation Complete','Production Started','Production Complete','Beta Testing','Launch Candidate','Version 1.0 Live'];
+
+  /* Readiness weighting — milestones intentionally carry the most. */
+  var WEIGHTS = { mile:0.40, succ:0.25, obj:0.25, focus:0.10 };
+
+  function phaseById(id){ for(var i=0;i<PHASES.length;i++) if(PHASES[i].id===id) return PHASES[i]; return PHASES[0]; }
+
+  function emptyFocusSide(){ return { priorities:[], deliverables:[], questions:[], completed:[], notes:'' }; }
+
+  /* Seeded starting content so the roadmap opens alive, not blank. */
+  function defaultState(){
+    return {
+      version:'1.5',
+      projectName:'Legacy Performance Institute',
+      phase:'p1',
+      checks:{},              // id -> bool  (success + phase objectives + milestones)
+      milestoneMeta:{},       // milestoneId -> { date, by, notes }
+      focus:{
+        edu:{ priorities:[ item('Lock the Level 1 curriculum outline'), item('Draft the weekly implementation class format'), item('Define learning objectives per module') ],
+              deliverables:[ item('Homework & accountability structure'), item('Feedback survey framework') ],
+              questions:[ item('How many modules ship in Level 1?') ],
+              completed:[ item('Vision & program structure aligned', true) ], notes:'' },
+        plat:{ priorities:[ item('Finalize the Product Requirements Document'), item('Map the trainer user journey'), item('Set UI direction & video standards') ],
+              deliverables:[ item('Dashboard & module structure plan'), item('Creative template & asset library setup') ],
+              questions:[ item('Which platform stack do we build on?') ],
+              completed:[ item('Platform architecture direction agreed', true) ], notes:'' }
+      },
+      meeting:{ notes:'', actions:'', questions:'', decisions:'', topics:'' },
+      decisions:[], parking:[], dependencies:[],
+      activity:[], snapshots:[],
+      ui:{ open:{} }          // collapse memory for accordions / journey cards
+    };
+    function item(text,done){ return { id:uid(), text:text, done:!!done }; }
+  }
+
+  /* Normalize any stored/imported blob into a valid state (migration boundary). */
+  function normalize(raw){
+    if(!raw || typeof raw!=='object') return defaultState();
+    var d = defaultState();
+    d.projectName   = raw.projectName || d.projectName;
+    d.phase         = raw.phase || d.phase;
+    d.checks        = raw.checks || {};
+    d.milestoneMeta = raw.milestoneMeta || {};
+    if(raw.focus){
+      d.focus = raw.focus;
+      ['edu','plat'].forEach(function(side){
+        if(!d.focus[side]) d.focus[side]=emptyFocusSide();
+        FOCUS_BLOCKS.forEach(function(b){ if(!Array.isArray(d.focus[side][b.key])) d.focus[side][b.key]=[]; });
+        if(typeof d.focus[side].notes!=='string') d.focus[side].notes='';
+      });
+    }
+    if(raw.meeting)     d.meeting = Object.assign(d.meeting, raw.meeting);
+    d.decisions    = raw.decisions || [];
+    d.parking      = raw.parking || [];
+    d.dependencies = raw.dependencies || [];
+    d.activity     = raw.activity || [];
+    d.snapshots    = raw.snapshots || [];
+    d.ui           = (raw.ui && raw.ui.open) ? raw.ui : { open:{} };
+    return d;
+  }
+
+  return { PHASES:PHASES, MILESTONES:MILESTONES, SUCCESS:SUCCESS, WORKSTREAMS:WORKSTREAMS,
+           FOCUS_BLOCKS:FOCUS_BLOCKS, SNAP_SUGGEST:SNAP_SUGGEST, WEIGHTS:WEIGHTS,
+           phaseById:phaseById, defaultState:defaultState, normalize:normalize };
+})();
+/* Constant aliases. */
+var PHASES=DataModel.PHASES, MILESTONES=DataModel.MILESTONES, SUCCESS=DataModel.SUCCESS,
+    WORKSTREAMS=DataModel.WORKSTREAMS, FOCUS_BLOCKS=DataModel.FOCUS_BLOCKS,
+    WEIGHTS=DataModel.WEIGHTS, phaseById=DataModel.phaseById;
+
+
+/*==================================================================
+  3. PERSISTENCE
+  A storage Adapter has two async methods: read() and write(state).
+  The Repository is the only thing callers touch. Because the API is
+  async, swapping LocalStorageAdapter for a network backend (Supabase,
+  REST, etc.) needs no changes anywhere else in the app.
+==================================================================*/
+var Persistence = (function(){
+  var STORAGE_KEY = 'lpi_roadmap_v1_5';
+
+  /* --- Local adapter (default) --- */
+  var LocalStorageAdapter = {
+    read: function(){
+      try { return Promise.resolve(JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null')); }
+      catch(e){ return Promise.resolve(null); }
+    },
+    write: function(snapshot){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot)); } catch(e){}
+      return Promise.resolve();
+    }
+  };
+
+  /* --- Future backend adapter (illustrative — same shape, drop-in) ---
+  function SupabaseAdapter(client, rowId){
+    return {
+      read:  function(){ return client.from('roadmaps').select('state').eq('id',rowId).single()
+                           .then(function(r){ return r.data ? r.data.state : null; }); },
+      write: function(snapshot){ return client.from('roadmaps').upsert({ id:rowId, state:snapshot })
+                           .then(function(){}); }
+    };
+  }
+  ------------------------------------------------------------------- */
+
+  var adapter = LocalStorageAdapter;
+  var saveTimer = null;
+
+  function useAdapter(a){ adapter = a; }                       // swap backend here
+  function load(){ return adapter.read().then(DataModel.normalize); }
+  function save(snapshot){                                     // debounced (coalesces rapid edits)
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ adapter.write(snapshot); }, 120);
+  }
+  function saveNow(snapshot){ clearTimeout(saveTimer); return adapter.write(snapshot); }
+
+  return { useAdapter:useAdapter, load:load, save:save, saveNow:saveNow, LocalStorageAdapter:LocalStorageAdapter };
+})();
+
+
+/*==================================================================
+  4. PROGRESS  (pure calculations — read state, return numbers)
+==================================================================*/
+var Progress = (function(){
+  function pct(done,total){ return total ? Math.round(done/total*100) : 0; }
+
+  function phaseObjStat(phase){
+    var done=0, total=phase.edu.length+phase.plat.length;
+    phase.edu.forEach(function(_,i){ if(state.checks[phase.id+'-edu-'+i]) done++; });
+    phase.plat.forEach(function(_,i){ if(state.checks[phase.id+'-plat-'+i]) done++; });
+    return { done:done, total:total, pct:pct(done,total) };
+  }
+  function allObjStat(){ var done=0,total=0;
+    PHASES.forEach(function(p){ var s=phaseObjStat(p); done+=s.done; total+=s.total; });
+    return { done:done, total:total, pct:pct(done,total) }; }
+
+  function successStat(){ var done=0;
+    SUCCESS.forEach(function(s){ if(state.checks[s.id]) done++; });
+    return { done:done, total:SUCCESS.length, pct:pct(done,SUCCESS.length) }; }
+
+  function milestoneStat(){ var done=0;
+    MILESTONES.forEach(function(m){ if(state.checks[m.id]) done++; });
+    return { done:done, total:MILESTONES.length, pct:pct(done,MILESTONES.length) }; }
+
+  function focusSideStat(side){ var done=0,total=0;
+    FOCUS_BLOCKS.forEach(function(b){ if(!b.check) return;
+      (state.focus[side][b.key]||[]).forEach(function(it){ total++; if(it.done) done++; }); });
+    return { done:done, total:total, pct:pct(done,total) }; }
+  function focusStat(){ var a=focusSideStat('edu'), b=focusSideStat('plat');
+    return { done:a.done+b.done, total:a.total+b.total, pct:pct(a.done+b.done,a.total+b.total), edu:a, plat:b }; }
+
+  /* Every checkable "task" across the roadmap (milestones tracked separately). */
+  function taskStat(){ var s=successStat(), o=allObjStat(), f=focusStat();
+    return { done:s.done+o.done+f.done, total:s.total+o.total+f.total }; }
+
+  /* Weighted launch readiness — milestones dominate. */
+  function readiness(){
+    var m=milestoneStat().pct, s=successStat().pct, o=allObjStat().pct, f=focusStat().pct;
+    return { pct:Math.round(m*WEIGHTS.mile + s*WEIGHTS.succ + o*WEIGHTS.obj + f*WEIGHTS.focus),
+             mile:m, succ:s, obj:o, focus:f };
+  }
+
+  function nextMilestone(){
+    for(var i=0;i<MILESTONES.length;i++) if(!state.checks[MILESTONES[i].id]) return MILESTONES[i].name.replace(/<br>/g,' ');
+    return 'All achieved';
+  }
+  function mostActiveWorkstream(){
+    var e=focusSideStat('edu').done, p=focusSideStat('plat').done;
+    PHASES.forEach(function(ph){ ph.edu.forEach(function(_,i){ if(state.checks[ph.id+'-edu-'+i]) e++; });
+      ph.plat.forEach(function(_,i){ if(state.checks[ph.id+'-plat-'+i]) p++; }); });
+    if(e===0 && p===0) return '—';
+    return e>p ? 'Education' : (p>e ? 'Platform' : 'Balanced');
+  }
+
+  return { phaseObjStat:phaseObjStat, allObjStat:allObjStat, successStat:successStat,
+           milestoneStat:milestoneStat, focusSideStat:focusSideStat, focusStat:focusStat,
+           taskStat:taskStat, readiness:readiness, nextMilestone:nextMilestone,
+           mostActiveWorkstream:mostActiveWorkstream };
+})();
+
+
+/*==================================================================
+  5. COMPONENTS  (small reusable UI builders — no business logic)
+==================================================================*/
+var Components = (function(){
+  /* Copper check button markup. `attrs` is an extra attribute string. */
+  function checkbox(checked, attrs){
+    return '<button class="chk" tabindex="-1" aria-checked="'+(checked?'true':'false')+'"'+(attrs||'')+'>'+
+           '<svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"/></svg></button>';
+  }
+  /* Retrigger the tap "pop" animation. */
+  function pop(btn){ btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop'); }
+
+  function setBar(sel,percent){ var el=$(sel); if(el) el.style.width=percent+'%'; }
+
+  /* Smoothly count a number element toward a target with requestAnimationFrame. */
+  var running = {};
+  function animateNumber(sel,target){
+    var el=$(sel); if(!el) return;
+    var current=parseInt(el.textContent,10); if(isNaN(current)) current=0;
+    if(current===target){ el.textContent=target; return; }
+    if(running[sel]) cancelAnimationFrame(running[sel]);
+    var start=current, t0=null, dur=700;
+    function step(t){ if(!t0) t0=t; var k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+      el.textContent=Math.round(start+(target-start)*e); if(k<1) running[sel]=requestAnimationFrame(step); }
+    running[sel]=requestAnimationFrame(step);
+  }
+
+  /* Expand/collapse a panel by animating max-height (CSS handles easing). */
+  function setCollapsed(card, bodySel, open, pad){
+    card.classList.toggle('open', open);
+    var body=$(bodySel,card);
+    body.style.maxHeight = open ? (body.scrollHeight+(pad||40))+'px' : '0px';
+  }
+
+  return { checkbox:checkbox, pop:pop, setBar:setBar, animateNumber:animateNumber, setCollapsed:setCollapsed };
+})();
+
+
+/*==================================================================
+  6. ACTIVITY LOG  (chronological feed of everything that moves)
+==================================================================*/
+var ActivityLog = (function(){
+  function log(text){
+    state.activity.unshift({ ts:Date.now(), text:text });
+    if(state.activity.length>120) state.activity=state.activity.slice(0,120);
+    render();
+    CommandCenter.updateInsights();
+    persist();
+  }
+  function render(){
+    var feed=$('#activityFeed'); if(!feed) return;
+    if(!state.activity.length){
+      feed.className='';
+      feed.innerHTML='<div class="feed-empty">No activity yet. As the team checks items, logs decisions, and hits milestones, it all appears here.</div>';
+      return;
+    }
+    feed.className='feed';
+    feed.innerHTML=state.activity.map(function(a,i){
+      return '<div class="feed-item'+(i===0?' fresh':'')+'"><div class="fi-text">'+a.text+
+             '</div><div class="fi-time">'+Utils.relTime(a.ts)+' · '+Utils.fmtTime(a.ts)+'</div></div>';
+    }).join('');
+  }
+  return { log:log, render:render };
+})();
+
+
+/*==================================================================
+  7. VIEWS
+==================================================================*/
+
+/* ---- 7a. Hero + Phase selector -------------------------------- */
+var Hero = (function(){
+  function update(){
+    var p=phaseById(state.phase), st=Progress.phaseObjStat(p);
+    setText('[data-phase-name]', p.name);
+    setText('[data-nav-phase]',  p.name);
+    setText('[data-phase-obj-pct]', st.pct);
+    Components.setBar('[data-phase-obj-bar]', st.pct);
+    $$('#phaseTrack .pt').forEach(function(b){ b.classList.toggle('active', b.dataset.phase===state.phase); });
+  }
+  function initSelector(){
+    $$('#phaseTrack .pt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(state.phase===btn.dataset.phase) return;
+        state.phase=btn.dataset.phase;
+        recompute(); persist();
+        ActivityLog.log('Current phase set to <b>'+esc(phaseById(state.phase).name)+'</b>');
+        toast('Phase → '+phaseById(state.phase).name);
+      });
+    });
+  }
+  return { update:update, initSelector:initSelector };
+})();
+
+/* ---- 7b. Success Criteria ------------------------------------- */
+var SuccessView = (function(){
+  function render(){
+    var grid=$('#critGrid'); grid.innerHTML='';
+    SUCCESS.forEach(function(s){
+      var on=!!state.checks[s.id];
+      var el=document.createElement('div');
+      el.className='crit'; el.dataset.id=s.id;
+      el.setAttribute('data-checked', on?'true':'false');
+      el.setAttribute('role','checkbox'); el.setAttribute('tabindex','0');
+      el.innerHTML=Components.checkbox(on)+
+        '<span class="crit-label">'+esc(s.label)+'</span><span class="crit-meta">'+esc(s.team)+'</span>';
+      grid.appendChild(el);
+    });
+    wire();
+  }
+  function wire(){
+    $$('#critGrid .crit').forEach(function(el){
+      var handler=function(){ toggle(el); };
+      el.addEventListener('click', handler);
+      el.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); handler(); } });
+    });
+  }
+  function toggle(el){
+    var id=el.dataset.id; state.checks[id]=!state.checks[id];
+    paint(el); Components.pop($('.chk',el));
+    var label=$('.crit-label',el).textContent;
+    ActivityLog.log((state.checks[id]?'Completed':'Reopened')+' success criterion · <b>'+esc(label)+'</b>');
+    recompute(); persist();
+  }
+  function paint(el){ var on=!!state.checks[el.dataset.id];
+    el.setAttribute('data-checked', on?'true':'false');
+    $('.chk',el).setAttribute('aria-checked', on?'true':'false'); }
+  function update(){
+    var s=Progress.successStat();
+    setText('[data-success-done]', s.done); setText('[data-success-total]', s.total);
+    Components.setBar('[data-progress-group="success"]', s.pct);
+  }
+  return { render:render, update:update };
+})();
+
+/* ---- 7c. Launch Journey (the phase timeline) ------------------ */
+var TimelineView = (function(){
+  function render(){
+    var grid=$('#journeyGrid'); grid.innerHTML='';
+    PHASES.forEach(function(p){
+      var st=Progress.phaseObjStat(p);
+      var objectives=p.edu.concat(p.plat).slice(0,5);
+      var open=!!state.ui.open['j-'+p.id];
+      var el=document.createElement('div');
+      el.className='jcard'+(open?' open':''); el.dataset.journey=p.id;
+      el.innerHTML=
+        '<div class="jhead">'+
+          '<span class="j-idx">'+p.idx+'</span>'+
+          '<div class="j-tag">'+esc(p.tag)+'</div>'+
+          '<h3>'+esc(p.name).replace(' &amp; ',' &amp;<br>')+'</h3>'+
+          '<p class="j-desc">'+esc(p.obj)+'</p>'+
+          '<div class="j-toggle"><span class="plus"></span> Expand objectives</div>'+
+        '</div>'+
+        '<div class="jbody"><div class="jbody-inner"><div class="jb-obj">'+
+          '<div class="j-obj-label">Core Objectives · '+st.done+' / '+st.total+' done</div>'+
+          '<ul class="tick-list">'+objectives.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('')+'</ul>'+
+          '<div class="jmile"><div class="jm-l">Milestone</div><p>'+esc(p.mile)+'</p></div>'+
+        '</div></div></div>';
+      grid.appendChild(el);
+    });
+    $$('#journeyGrid [data-journey]').forEach(function(card){
+      $('.jhead',card).addEventListener('click', function(){
+        var open=!card.classList.contains('open');
+        Components.setCollapsed(card,'.jbody',open);
+        state.ui.open['j-'+card.dataset.journey]=open; persist();
+      });
+    });
+  }
+  return { render:render };
+})();
+
+/* ---- 7d. Current Focus (editable workspaces) ------------------ */
+var FocusView = (function(){
+  function render(){
+    var grid=$('#focusGrid'); grid.innerHTML='';
+    WORKSTREAMS.forEach(function(ws){
+      var st=Progress.focusSideStat(ws.key);
+      var el=document.createElement('div');
+      el.className='ws reveal in'; el.dataset.side=ws.key;
+      el.innerHTML=
+        '<div class="ws-head"><div>'+
+          '<div class="ws-team">'+ws.team+'</div>'+
+          '<div class="ws-name">'+ws.name+'</div>'+
+          '<div class="ws-people">'+ws.people+'</div>'+
+        '</div><div class="ws-pct"><div class="n" data-focus-pct="'+ws.key+'">'+st.pct+'%</div><div class="l">Complete</div></div></div>'+
+        '<div class="ws-bar"><span data-focus-bar="'+ws.key+'" style="width:'+st.pct+'%"></span></div>'+
+        FOCUS_BLOCKS.map(function(b){ return renderBlock(ws.key,b); }).join('')+
+        '<div class="ws-block"><div class="ws-block-title">Notes</div>'+
+          '<div class="ws-note"><textarea data-focus-note="'+ws.key+'" placeholder="Add running notes for this workstream…">'+esc(state.focus[ws.key].notes)+'</textarea></div></div>';
+      grid.appendChild(el);
+    });
+    wire();
+  }
+  function renderBlock(side,b){
+    var list=state.focus[side][b.key]||[];
+    var rows=list.length ? list.map(function(it){ return renderRow(side,b,it); }).join('')
+                         : '<div class="ws-empty">Nothing here yet.</div>';
+    var countLabel=b.check ? blockCount(side,b.key) : list.length;
+    var addLabel=b.label.replace(/s$/,'').replace('Current ','').replace('Next ','');
+    return '<div class="ws-block" data-block="'+b.key+'">'+
+      '<div class="ws-block-title">'+b.label+'<span class="wbt-count">'+countLabel+'</span></div>'+
+      '<div class="ws-list">'+rows+'</div>'+
+      '<button class="ws-add" data-fadd="'+side+'|'+b.key+'"><span class="pl"></span> Add '+addLabel+'</button>'+
+    '</div>';
+  }
+  function renderRow(side,b,it){
+    var handle = b.check
+      ? Components.checkbox(it.done, ' data-fcheck="'+side+'|'+b.key+'|'+it.id+'"').replace('tabindex="-1"','tabindex="0"')
+      : '<span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--copper-dark);margin-top:8px;"></span>';
+    return '<div class="ws-item" data-checked="'+(it.done?'true':'false')+'">'+handle+
+      '<textarea class="wt" rows="1" data-ftext="'+side+'|'+b.key+'|'+it.id+'" placeholder="Describe…">'+esc(it.text)+'</textarea>'+
+      '<button class="ws-del" data-fdel="'+side+'|'+b.key+'|'+it.id+'" title="Delete">✕</button></div>';
+  }
+  function blockCount(side,key){ var l=state.focus[side][key]||[];
+    return l.filter(function(i){return i.done;}).length+' / '+l.length; }
+  function findItem(side,key,id){ var l=state.focus[side][key]||[];
+    for(var i=0;i<l.length;i++) if(l[i].id===id) return l[i]; return null; }
+
+  function wire(){
+    /* text edits (auto-grow, save without re-render to preserve caret) */
+    $$('#focusGrid textarea.wt').forEach(function(ta){
+      Utils.autoGrow(ta);
+      ta.addEventListener('input', function(){ Utils.autoGrow(ta);
+        var p=ta.dataset.ftext.split('|'), it=findItem(p[0],p[1],p[2]); if(it){ it.text=ta.value; persist(); } });
+    });
+    /* check toggles */
+    $$('#focusGrid [data-fcheck]').forEach(function(btn){
+      var handler=function(){
+        var p=btn.dataset.fcheck.split('|'), it=findItem(p[0],p[1],p[2]); if(!it) return;
+        it.done=!it.done;
+        btn.setAttribute('aria-checked', it.done?'true':'false'); Components.pop(btn);
+        btn.closest('.ws-item').setAttribute('data-checked', it.done?'true':'false');
+        refreshStats(p[0]); recompute(); persist();
+      };
+      btn.addEventListener('click', handler);
+      btn.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); handler(); } });
+    });
+    /* delete */
+    $$('#focusGrid [data-fdel]').forEach(function(btn){ btn.addEventListener('click', function(){
+      var p=btn.dataset.fdel.split('|'), list=state.focus[p[0]][p[1]];
+      var idx=list.map(function(i){return i.id;}).indexOf(p[2]); if(idx>-1) list.splice(idx,1);
+      persist(); render(); recompute(); }); });
+    /* add */
+    $$('#focusGrid [data-fadd]').forEach(function(btn){ btn.addEventListener('click', function(){
+      var p=btn.dataset.fadd.split('|');
+      state.focus[p[0]][p[1]].push({ id:uid(), text:'', done:false });
+      persist(); render(); recompute();
+      var added=$$('#focusGrid [data-side="'+p[0]+'"] [data-block="'+p[1]+'"] textarea.wt');
+      if(added.length) added[added.length-1].focus();
+    }); });
+    /* notes */
+    $$('#focusGrid [data-focus-note]').forEach(function(ta){
+      ta.addEventListener('input', function(){ state.focus[ta.dataset.focusNote].notes=ta.value; persist(); }); });
+  }
+
+  function refreshStats(side){
+    var st=Progress.focusSideStat(side);
+    var pctEl=$('[data-focus-pct="'+side+'"]'); if(pctEl) pctEl.textContent=st.pct+'%';
+    Components.setBar('[data-focus-bar="'+side+'"]', st.pct);
+    var ws=$('#focusGrid [data-side="'+side+'"]');
+    FOCUS_BLOCKS.forEach(function(b){ if(!b.check) return;
+      var c=$('[data-block="'+b.key+'"] .wbt-count', ws); if(c) c.textContent=blockCount(side,b.key); });
+  }
+  return { render:render };
+})();
+
+/* ---- 7e. Project Phases (interactive accordion) --------------- */
+var PhasesView = (function(){
+  function render(){
+    var wrap=$('#accList'); wrap.innerHTML='';
+    PHASES.forEach(function(p){
+      var st=Progress.phaseObjStat(p);
+      var open=!!state.ui.open['acc-'+p.id];
+      var acc=document.createElement('div');
+      acc.className='acc'+(open?' open':''); acc.dataset.acc=p.id;
+      acc.innerHTML=
+        '<div class="acc-head">'+
+          '<span class="acc-idx">'+p.idx+'</span>'+
+          '<div class="acc-heit">'+
+            '<div class="acc-tag">'+esc(p.tag)+'</div>'+
+            '<div class="acc-title">'+esc(p.name)+'</div>'+
+            '<p class="acc-obj">'+esc(p.obj)+'</p>'+
+          '</div>'+
+          '<div class="acc-prog"><div class="ap-top"><span class="ap-pct" data-ap-pct="'+p.id+'">'+st.pct+'%</span></div>'+
+            '<div class="ap-frac" data-ap-frac="'+p.id+'">'+st.done+' done · '+(st.total-st.done)+' left</div>'+
+            '<div class="ap-bar"><span data-ap-bar="'+p.id+'" style="width:'+st.pct+'%"></span></div></div>'+
+          '<span class="acc-plus"></span>'+
+        '</div>'+
+        '<div class="acc-body"><div class="acc-body-inner">'+
+          '<div class="acc-cols">'+
+            '<div><div class="acc-col-team">Education &amp; Implementation</div><div class="acc-col-people">Scott + Tony</div>'+objList(p,'edu')+'</div>'+
+            '<div><div class="acc-col-team">Platform &amp; Production</div><div class="acc-col-people">Loren + Walter</div>'+objList(p,'plat')+'</div>'+
+          '</div>'+
+          '<div class="acc-mile"><span class="am-l">Milestone</span><p>'+esc(p.mile)+'</p></div>'+
+        '</div></div>';
+      wrap.appendChild(acc);
+    });
+    wire();
+  }
+  function objList(p,col){
+    return '<div class="obj-group">'+p[col].map(function(t,i){
+      var id=p.id+'-'+col+'-'+i, on=!!state.checks[id];
+      return '<div class="obj-item" data-obj="'+id+'" data-checked="'+(on?'true':'false')+'">'+
+        Components.checkbox(on)+'<span class="ot">'+esc(t)+'</span></div>';
+    }).join('')+'</div>';
+  }
+  function wire(){
+    $$('#accList [data-acc]').forEach(function(acc){
+      $('.acc-head',acc).addEventListener('click', function(){
+        var open=!acc.classList.contains('open');
+        Components.setCollapsed(acc,'.acc-body',open,60);
+        state.ui.open['acc-'+acc.dataset.acc]=open; persist();
+      });
+    });
+    $$('#accList .obj-item').forEach(function(row){ row.addEventListener('click', function(){ toggleObj(row); }); });
+  }
+  function toggleObj(row){
+    var id=row.dataset.obj; state.checks[id]=!state.checks[id];
+    var on=!!state.checks[id];
+    row.setAttribute('data-checked', on?'true':'false');
+    var btn=$('.chk',row); btn.setAttribute('aria-checked', on?'true':'false'); Components.pop(btn);
+    updatePhaseStat(id.split('-')[0]);
+    App.refreshOpenHeights(); recompute(); persist();
+  }
+  /* Refresh just the header stat for one phase (no full re-render). */
+  function updatePhaseStat(pid){
+    var st=Progress.phaseObjStat(phaseById(pid));
+    var pe=$('[data-ap-pct="'+pid+'"]');  if(pe) pe.textContent=st.pct+'%';
+    var fe=$('[data-ap-frac="'+pid+'"]'); if(fe) fe.textContent=st.done+' done · '+(st.total-st.done)+' left';
+    Components.setBar('[data-ap-bar="'+pid+'"]', st.pct);
+  }
+  return { render:render };
+})();
+
+/* ---- 7f. Shared Milestones ------------------------------------ */
+var MilestonesView = (function(){
+  function render(){
+    var grid=$('#mileGrid'); grid.innerHTML='';
+    MILESTONES.forEach(function(m){
+      var on=!!state.checks[m.id], meta=state.milestoneMeta[m.id]||{};
+      var el=document.createElement('div');
+      el.className='mstone'+(on?' lit':''); el.dataset.mile=m.id;
+      el.innerHTML=
+        '<div class="m-top" data-mtoggle="'+m.id+'">'+
+          '<div class="m-ring"><svg viewBox="0 0 24 24">'+m.icon+'</svg></div>'+
+          '<div class="m-name">'+m.name+'</div>'+
+          '<div class="m-state">'+(on?'Achieved':'Pending')+'</div>'+
+        '</div>'+
+        '<div class="m-meta"><div class="m-meta-inner">'+
+          '<div class="m-field"><label>Completed</label><div class="m-date" data-mdate="'+m.id+'">'+(meta.date?Utils.fmtDate(meta.date):'—')+'</div></div>'+
+          '<div class="m-field"><label>Completed By</label><input type="text" data-mby="'+m.id+'" value="'+esc(meta.by||'')+'" placeholder="Who signed off…"></div>'+
+          '<div class="m-field"><label>Notes</label><textarea data-mnote="'+m.id+'" placeholder="Optional notes…">'+esc(meta.notes||'')+'</textarea></div>'+
+        '</div></div>';
+      grid.appendChild(el);
+    });
+    wire();
+  }
+  function wire(){
+    $$('#mileGrid [data-mtoggle]').forEach(function(top){ top.addEventListener('click', function(){ toggle(top.dataset.mtoggle); }); });
+    $$('#mileGrid [data-mby]').forEach(function(inp){ inp.addEventListener('input', function(){
+      var id=inp.dataset.mby; state.milestoneMeta[id]=state.milestoneMeta[id]||{}; state.milestoneMeta[id].by=inp.value; persist(); }); });
+    $$('#mileGrid [data-mnote]').forEach(function(ta){ ta.addEventListener('input', function(){
+      var id=ta.dataset.mnote; state.milestoneMeta[id]=state.milestoneMeta[id]||{}; state.milestoneMeta[id].notes=ta.value; persist(); }); });
+  }
+  function setMetaHeight(el,open){ var meta=$('.m-meta',el);
+    meta.style.maxHeight = open ? ($('.m-meta-inner',meta).scrollHeight+2)+'px' : '0px'; }
+  function toggle(id){
+    var el=$('#mileGrid [data-mile="'+id+'"]');
+    var willOn=!state.checks[id]; state.checks[id]=willOn;
+    var m=null; MILESTONES.forEach(function(x){ if(x.id===id) m=x; });
+    var name=m?m.name.replace(/<br>/g,' '):id;
+    if(willOn){
+      el.classList.add('lit'); el.classList.remove('celebrate'); void el.offsetWidth; el.classList.add('celebrate');
+      state.milestoneMeta[id]=state.milestoneMeta[id]||{};
+      if(!state.milestoneMeta[id].date) state.milestoneMeta[id].date=Date.now();
+      var de=$('[data-mdate="'+id+'"]'); if(de) de.textContent=Utils.fmtDate(state.milestoneMeta[id].date);
+      $('.m-state',el).textContent='Achieved'; setMetaHeight(el,true);
+      ActivityLog.log('Milestone achieved · <b>'+esc(name)+'</b>');
+    } else {
+      el.classList.remove('lit'); $('.m-state',el).textContent='Pending'; setMetaHeight(el,false);
+      ActivityLog.log('Milestone reopened · <b>'+esc(name)+'</b>');
+    }
+    recompute(); persist();
+  }
+  function update(){
+    var s=Progress.milestoneStat();
+    setText('[data-mile-done]', s.done); setText('[data-mile-total]', s.total); setText('[data-mile-done-2]', s.done);
+  }
+  function applyOpen(){ $$('#mileGrid .mstone.lit').forEach(function(el){ setMetaHeight(el,true); }); }
+  return { render:render, update:update, applyOpen:applyOpen };
+})();
+
+/* ---- 7g. Launch Readiness ------------------------------------- */
+var ReadinessView = (function(){
+  function update(){
+    var r=Progress.readiness(), task=Progress.taskStat(), phaseSt=Progress.phaseObjStat(phaseById(state.phase));
+    setText('[data-completed-tasks]', task.done);
+    setText('[data-remaining-tasks]', task.total-task.done);
+    setText('[data-current-phase]', phaseById(state.phase).name);
+    setText('[data-next-milestone]', Progress.nextMilestone());
+    setText('[data-phase-obj-pct-2]', phaseSt.pct);
+
+    /* readiness ring */
+    var ring=$('[data-ring]'), C=2*Math.PI*54;
+    ring.setAttribute('stroke-dasharray', C.toFixed(2));
+    ring.style.strokeDashoffset=(C*(1-r.pct/100)).toFixed(2);
+    Components.animateNumber('[data-ring-pct]', r.pct);
+
+    /* readiness composition bars */
+    Components.setBar('[data-w-mile]', r.mile);  setText('[data-wv-mile]',  r.mile+'%');
+    Components.setBar('[data-w-succ]', r.succ);  setText('[data-wv-succ]',  r.succ+'%');
+    Components.setBar('[data-w-obj]',  r.obj);   setText('[data-wv-obj]',   r.obj+'%');
+    Components.setBar('[data-w-focus]',r.focus); setText('[data-wv-focus]', r.focus+'%');
+  }
+  return { update:update };
+})();
+
+/* ---- 7h. Navigation: scroll-spy, parallax, reveal ------------- */
+var NavView = (function(){
+  function initScrollSpy(){
+    var nav=$('#nav');
+    var links=$$('#navLinks a');
+    var sections=links.map(function(a){ return $(a.getAttribute('href')); }).filter(Boolean);
+    function onScroll(){
+      nav.classList.toggle('scrolled', window.scrollY>20);
+      var offset=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))||64;
+      var pos=window.scrollY+offset+40, current=sections[0];
+      sections.forEach(function(s){ if(s.offsetTop<=pos) current=s; });
+      links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+(current&&current.id)); });
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', function(){ onScroll(); App.refreshOpenHeights(); });
+    onScroll();
+  }
+  function initParallax(){
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    var layers=$$('.hero-parallax'), hero=$('#top');
+    hero.addEventListener('mousemove', function(e){
+      var r=hero.getBoundingClientRect();
+      var x=(e.clientX-r.width/2)/r.width, y=(e.clientY-r.height/2)/r.height;
+      layers.forEach(function(l){ var d=parseFloat(l.dataset.depth)||0; l.style.transform='translate('+(x*d)+'px,'+(y*d)+'px)'; });
+    });
+    hero.addEventListener('mouseleave', function(){ layers.forEach(function(l){ l.style.transform='translate(0,0)'; }); });
+  }
+  function initReveal(){
+    var els=$$('.reveal,.stagger');
+    if(!('IntersectionObserver' in window)){ els.forEach(function(e){ e.classList.add('in'); }); return; }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  }
+  return { initScrollSpy:initScrollSpy, initParallax:initParallax, initReveal:initReveal };
+})();
+
+
+/*==================================================================
+  8. COMMAND CENTER
+  The slide-over workspace. init() binds the panel chrome once;
+  refresh() re-populates its data-driven views.
+==================================================================*/
+var CommandCenter = (function(){
+  var panel, overlay;
+
+  /* Editable-list configs (Decisions / Parking Lot / Dependencies) share one engine. */
+  var LIST_DEFS = {
+    decision:{ arr:'decisions', mount:'#decisionsList', label:'decision',
+      fields:[ {k:'decision',l:'Decision',t:'text',full:true,ph:'What was decided…'},
+               {k:'reason',l:'Reason',t:'textarea',full:true,ph:'Why…'},
+               {k:'owner',l:'Owner',t:'text',ph:'Who owns it'},
+               {k:'date',l:'Date',t:'text',ph:'When'},
+               {k:'status',l:'Status',t:'select',opts:['Decided','Revisiting','Superseded']} ],
+      activity:function(o){ return 'Decision added · <b>'+esc(o.decision||'Untitled')+'</b>'; } },
+    parking:{ arr:'parking', mount:'#parkingList', label:'idea',
+      fields:[ {k:'idea',l:'Idea',t:'text',full:true,ph:'The idea…'},
+               {k:'reason',l:'Reason for Parking',t:'textarea',full:true,ph:'Why it waits…'},
+               {k:'priority',l:'Priority',t:'select',opts:['Low','Medium','High']},
+               {k:'phase',l:'Future Phase',t:'select',opts:['Foundation','Production','Integration & Launch','Post-Launch']},
+               {k:'status',l:'Status',t:'select',opts:['Parked','Under Review','Promoted']} ],
+      activity:function(o){ return 'Idea parked · <b>'+esc(o.idea||'Untitled')+'</b>'; } },
+    dep:{ arr:'dependencies', mount:'#depsList', label:'dependency',
+      fields:[ {k:'label',l:'Waiting On',t:'text',full:true,ph:'e.g. Waiting on Lesson 3'},
+               {k:'owner',l:'Owner / Team',t:'text',ph:'Who unblocks it'},
+               {k:'status',l:'Status',t:'select',opts:['Blocked','In Progress','Cleared']} ],
+      activity:function(o){ return 'Dependency added · <b>'+esc(o.label||'Untitled')+'</b>'; } }
+  };
+
+  /* -------- open / close / tabs -------- */
+  function open(view){ document.body.classList.add('locked'); overlay.classList.add('open');
+    panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); if(view) switchView(view); updateInsights(); }
+  function close(){ document.body.classList.remove('locked'); overlay.classList.remove('open');
+    panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); }
+  function switchView(v){
+    $$('#ccTabs .cc-tab').forEach(function(t){ t.classList.toggle('active', t.dataset.view===v); });
+    $$('.cc-view').forEach(function(x){ x.classList.toggle('active', x.dataset.view===v); });
+    var body=$('.cc-body'); if(body) body.scrollTop=0;
+  }
+
+  /* -------- editable list engine -------- */
+  function findEntry(arrName,id){ var a=state[arrName]; for(var i=0;i<a.length;i++) if(a[i].id===id) return a[i]; return null; }
+  function renderList(type){
+    var def=LIST_DEFS[type], mount=$(def.mount), arr=state[def.arr]; mount.innerHTML='';
+    if(!arr.length){ mount.innerHTML='<div class="cc-empty">Nothing here yet — add your first '+def.label+' below.</div>'; return; }
+    arr.forEach(function(o){
+      var fields=def.fields.map(function(f){
+        var input;
+        if(f.t==='textarea') input='<textarea data-ef="'+f.k+'" placeholder="'+esc(f.ph||'')+'">'+esc(o[f.k]||'')+'</textarea>';
+        else if(f.t==='select') input='<select data-ef="'+f.k+'">'+f.opts.map(function(op){ return '<option'+(o[f.k]===op?' selected':'')+'>'+esc(op)+'</option>'; }).join('')+'</select>';
+        else input='<input type="text" data-ef="'+f.k+'" value="'+esc(o[f.k]||'')+'" placeholder="'+esc(f.ph||'')+'">';
+        return '<div class="en-field'+(f.full?' full':'')+'"><label>'+f.l+'</label>'+input+'</div>';
+      }).join('');
+      var e=document.createElement('div'); e.className='entry'; e.dataset.eid=o.id;
+      e.innerHTML='<button class="en-del" data-edel title="Delete">✕</button><div class="en-row">'+fields+'</div>';
+      mount.appendChild(e);
+    });
+    $$(def.mount+' .entry').forEach(function(en){
+      var o=findEntry(def.arr,en.dataset.eid);
+      $$('[data-ef]',en).forEach(function(inp){
+        var save=function(){ o[inp.dataset.ef]=inp.value; persist(); };
+        inp.addEventListener('input', save); inp.addEventListener('change', save);
+      });
+      $('[data-edel]',en).addEventListener('click', function(){
+        var arr=state[def.arr], i=arr.map(function(x){return x.id;}).indexOf(en.dataset.eid);
+        if(i>-1) arr.splice(i,1); persist(); renderList(type);
+      });
+    });
+  }
+  function addEntry(type){
+    var def=LIST_DEFS[type], o={ id:uid() };
+    def.fields.forEach(function(f){ o[f.k]=f.t==='select'?f.opts[0]:''; });
+    if(def.fields.some(function(f){ return f.k==='date'; })) o.date=Utils.fmtDate(Date.now());
+    state[def.arr].unshift(o); persist(); renderList(type);
+    var first=$(def.mount+' .entry [data-ef]'); if(first) first.focus();
+    ActivityLog.log(def.activity(o));
+  }
+
+  /* -------- meeting hub -------- */
+  function bindMeeting(){
+    $$('[data-meeting]').forEach(function(ta){
+      ta.addEventListener('input', function(){ state.meeting[ta.dataset.meeting]=ta.value; persist(); }); });
+  }
+  function refreshMeeting(){ $$('[data-meeting]').forEach(function(ta){ ta.value=state.meeting[ta.dataset.meeting]||''; }); }
+
+  /* -------- insights (executive overview) -------- */
+  function updateInsights(){
+    var r=Progress.readiness(), task=Progress.taskStat(), mile=Progress.milestoneStat();
+    setText('[data-ins-phase]', phaseById(state.phase).name);
+    setText('[data-ins-next]', Progress.nextMilestone());
+    setText('[data-ins-done]', task.done);
+    setText('[data-ins-remain]', task.total-task.done);
+    setText('[data-ins-active]', Progress.mostActiveWorkstream());
+    setText('[data-ins-mile]', mile.done);
+    var ir=$('[data-ins-ring]');
+    if(ir){ var C=2*Math.PI*29; ir.setAttribute('stroke-dasharray', C.toFixed(2)); ir.style.strokeDashoffset=(C*(1-r.pct/100)).toFixed(2); }
+    setText('[data-ins-ring-pct]', r.pct+'%');
+    var recent=$('[data-ins-recent]'); if(recent) recent.innerHTML=state.activity.length?state.activity[0].text:'No activity yet';
+  }
+
+  /* -------- lifecycle -------- */
+  function init(){
+    panel=$('#ccPanel'); overlay=$('#ccOverlay');
+    $('#ccOpen').addEventListener('click', function(){ open(); });
+    $('#ccClose').addEventListener('click', close);
+    overlay.addEventListener('click', close);
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')) close(); });
+    $$('#ccTabs .cc-tab').forEach(function(t){ t.addEventListener('click', function(){ switchView(t.dataset.view); }); });
+    $$('[data-add]').forEach(function(btn){ btn.addEventListener('click', function(){ addEntry(btn.dataset.add); }); });
+    bindMeeting();
+    ProjectData.bind();      // wire Project Data buttons
+    refresh();
+  }
+  function refresh(){
+    refreshMeeting();
+    renderList('decision'); renderList('parking'); renderList('dep');
+    ActivityLog.render();
+    Snapshots.render();
+    updateInsights();
+  }
+
+  return { init:init, refresh:refresh, open:open, close:close, switchView:switchView, updateInsights:updateInsights };
+})();
+
+
+/*==================================================================
+  9. SNAPSHOTS  (historical checkpoints)
+==================================================================*/
+var Snapshots = (function(){
+  /* Deep-copy the restorable slice of state plus a human-readable summary. */
+  function build(name){
+    var r=Progress.readiness(), task=Progress.taskStat();
+    var achieved=MILESTONES.filter(function(m){ return state.checks[m.id]; }).map(function(m){ return m.name.replace(/<br>/g,' '); });
+    return {
+      id:uid(), name:name||('Snapshot '+Utils.fmtDate(Date.now())), ts:Date.now(),
+      phase:phaseById(state.phase).name, readiness:r.pct,
+      completedTasks:task.done, totalTasks:task.total, completedMilestones:achieved,
+      data:{
+        phase:state.phase,
+        checks:clone(state.checks), milestoneMeta:clone(state.milestoneMeta),
+        focus:clone(state.focus), meeting:clone(state.meeting),
+        decisions:clone(state.decisions), parking:clone(state.parking), dependencies:clone(state.dependencies)
+      }
+    };
+  }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function create(name){
+    var snap=build(name); state.snapshots.unshift(snap);
+    persist(); render();
+    ActivityLog.log('Snapshot created · <b>'+esc(snap.name)+'</b>'); toast('Snapshot saved');
+  }
+  function restore(id){
+    var s=find(id); if(!s) return;
+    if(!confirm('Restore "'+s.name+'"? This replaces current progress with the snapshot (your snapshots and activity are kept).')) return;
+    var d=s.data;
+    state.phase=d.phase||state.phase; state.checks=d.checks||{}; state.milestoneMeta=d.milestoneMeta||{};
+    state.focus=d.focus||state.focus;
+    state.meeting=Object.assign({notes:'',actions:'',questions:'',decisions:'',topics:''}, d.meeting||{});
+    state.decisions=d.decisions||[]; state.parking=d.parking||[]; state.dependencies=d.dependencies||[];
+    persistNow(); ActivityLog.log('Restored snapshot · <b>'+esc(s.name)+'</b>'); rerenderAll(); toast('Snapshot restored');
+  }
+  function exportOne(id){ var s=find(id); if(!s) return;
+    Utils.downloadJSON(s, 'lpi-snapshot-'+Utils.slug(s.name)+'.json'); toast('Snapshot exported'); }
+  function remove(id){ var i=state.snapshots.map(function(x){return x.id;}).indexOf(id);
+    if(i>-1) state.snapshots.splice(i,1); persist(); render(); }
+  function find(id){ var f=null; state.snapshots.forEach(function(x){ if(x.id===id) f=x; }); return f; }
+
+  function render(){
+    var wrap=$('#snapList'); if(!wrap) return; wrap.innerHTML='';
+    if(!state.snapshots.length){ wrap.innerHTML='<div class="cc-empty">No snapshots yet. Create your first checkpoint above.</div>'; return; }
+    state.snapshots.forEach(function(s){
+      var miles=(s.completedMilestones && s.completedMilestones.length) ? s.completedMilestones.join(', ') : 'None yet';
+      var el=document.createElement('div'); el.className='snap'; el.dataset.sid=s.id;
+      el.innerHTML=
+        '<div class="snap-h"><div class="snap-name">'+esc(s.name)+'</div><div class="snap-time">'+Utils.fmtTime(s.ts)+'</div></div>'+
+        '<div class="snap-meta">'+
+          '<div class="sm">Phase · <b>'+esc(s.phase)+'</b></div>'+
+          '<div class="sm">Launch Ready · <b>'+s.readiness+'%</b></div>'+
+          '<div class="sm">Tasks · <b>'+s.completedTasks+' / '+s.totalTasks+'</b></div>'+
+          '<div class="sm">Milestones · <b>'+(s.completedMilestones?s.completedMilestones.length:0)+' / 5</b></div>'+
+        '</div>'+
+        '<div class="snap-meta"><div class="sm" style="color:#8a8781">Completed milestones: '+esc(miles)+'</div></div>'+
+        '<div class="snap-acts">'+
+          '<button class="mini-btn primary" data-srestore>Restore</button>'+
+          '<button class="mini-btn" data-sexport>Export</button>'+
+          '<button class="mini-btn danger" data-sdel>Delete</button>'+
+        '</div>';
+      wrap.appendChild(el);
+    });
+    $$('#snapList .snap').forEach(function(el){ var id=el.dataset.sid;
+      $('[data-srestore]',el).addEventListener('click', function(){ restore(id); });
+      $('[data-sexport]',el).addEventListener('click', function(){ exportOne(id); });
+      $('[data-sdel]',el).addEventListener('click', function(){ remove(id); });
+    });
+  }
+  function initUI(){
+    var suggest=$('#snapSuggest');
+    DataModel.SNAP_SUGGEST.forEach(function(n){
+      var b=document.createElement('button'); b.className='snap-chip'; b.textContent=n;
+      b.addEventListener('click', function(){ $('#snapName').value=n; $('#snapName').focus(); });
+      suggest.appendChild(b);
+    });
+    $('#snapCreate').addEventListener('click', function(){
+      var n=$('#snapName').value.trim(); create(n||('Snapshot '+Utils.fmtDate(Date.now()))); $('#snapName').value=''; });
+    render();
+  }
+  return { create:create, render:render, initUI:initUI };
+})();
+
+
+/*==================================================================
+  10. PROJECT DATA  (whole-roadmap export / import / reset)
+==================================================================*/
+var ProjectData = (function(){
+  function exportAll(){
+    var out=JSON.parse(JSON.stringify(state));
+    out.exportedAt=new Date().toISOString();
+    out.summary={ phase:phaseById(state.phase).name, readiness:Progress.readiness().pct,
+                  completedMilestones:MILESTONES.filter(function(m){ return state.checks[m.id]; }).length };
+    Utils.downloadJSON(out, 'lpi-roadmap-'+Utils.slug(state.projectName)+'.json');
+    ActivityLog.log('Project exported'); toast('Roadmap exported');
+  }
+  function importAll(file){
+    var reader=new FileReader();
+    reader.onload=function(){
+      try{
+        var p=JSON.parse(reader.result);
+        if(p && p.data && p.completedMilestones){        // a single-snapshot file
+          if(!confirm('This looks like a snapshot file. Import it as your full roadmap state?')) return;
+          state.phase=p.data.phase||state.phase; state.checks=p.data.checks||{}; state.milestoneMeta=p.data.milestoneMeta||{};
+          state.focus=p.data.focus||state.focus; state.meeting=Object.assign(state.meeting, p.data.meeting||{});
+          state.decisions=p.data.decisions||[]; state.parking=p.data.parking||[]; state.dependencies=p.data.dependencies||[];
+        } else {                                          // a full export
+          state=DataModel.normalize(p);
+        }
+        persistNow(); rerenderAll(); ActivityLog.log('Project imported'); toast('Roadmap imported');
+      } catch(e){ toast('Invalid file'); }
+    };
+    reader.readAsText(file);
+  }
+  function resetAll(){
+    if(!confirm('Reset the entire roadmap? This clears all progress, notes, decisions, snapshots, and activity on this device. This cannot be undone.')) return;
+    state=DataModel.defaultState(); persistNow(); rerenderAll(); toast('Roadmap reset');
+  }
+  function bind(){
+    $('#dataExport').addEventListener('click', exportAll);
+    $('#dataImport').addEventListener('click', function(){ $('#importFile').click(); });
+    $('#dataSnapshot').addEventListener('click', function(){ CommandCenter.switchView('snapshots'); $('#snapName').focus(); });
+    $('#dataReset').addEventListener('click', resetAll);
+    $('#importFile').addEventListener('change', function(e){ if(e.target.files && e.target.files[0]) importAll(e.target.files[0]); e.target.value=''; });
+  }
+  return { bind:bind, exportAll:exportAll, importAll:importAll, resetAll:resetAll };
+})();
+
+
+/*==================================================================
+  11. APP  (bootstrap + cross-module coordination)
+==================================================================*/
+var App = (function(){
+
+  /* Refresh every piece of derived UI after a state change. */
+  function recompute(){
+    Hero.update();
+    SuccessView.update();
+    MilestonesView.update();
+    ReadinessView.update();
+    CommandCenter.updateInsights();
+  }
+
+  /* Re-measure any open collapsible so its height tracks content changes. */
+  function refreshOpenHeights(){
+    $$('[data-acc].open').forEach(function(c){ var b=$('.acc-body',c); b.style.maxHeight=(b.scrollHeight+60)+'px'; });
+    $$('[data-journey].open').forEach(function(c){ var b=$('.jbody',c); b.style.maxHeight=(b.scrollHeight+40)+'px'; });
+  }
+  /* Restore collapse + milestone-meta open states after a (re)render. */
+  function applyOpenStates(){
+    refreshOpenHeights();
+    MilestonesView.applyOpen();
+  }
+
+  /* Full re-render — used after import / restore / reset. */
+  function rerenderAll(){
+    SuccessView.render(); TimelineView.render(); FocusView.render();
+    PhasesView.render(); MilestonesView.render();
+    CommandCenter.refresh();
+    recompute(); applyOpenStates();
+  }
+
+  function start(){
+    Persistence.load().then(function(loaded){
+      state = loaded;
+      /* initial render of every section */
+      SuccessView.render(); TimelineView.render(); FocusView.render();
+      PhasesView.render(); MilestonesView.render();
+      /* one-time wiring */
+      Hero.initSelector();
+      CommandCenter.init();
+      Snapshots.initUI();
+      /* derived UI + restored open states */
+      recompute();
+      applyOpenStates();
+      /* nav behaviors */
+      NavView.initScrollSpy();
+      NavView.initReveal();
+      NavView.initParallax();
+    });
+  }
+
+  return { recompute:recompute, refreshOpenHeights:refreshOpenHeights, applyOpenStates:applyOpenStates,
+           rerenderAll:rerenderAll, start:start };
+})();
+
+/* ---- Ignition ---- */
+App.start();
+
+})();
+
+</script>
+</body>
+</html>
